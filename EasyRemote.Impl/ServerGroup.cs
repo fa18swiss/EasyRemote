@@ -9,6 +9,7 @@ namespace EasyRemote.Impl
         {
             Childrens = new List<IServerBase>();
         }
+
         public string Name { get; set; }
         public IList<IServerBase> Childrens { get; private set; }
     }
