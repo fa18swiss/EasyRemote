@@ -2,7 +2,7 @@
 {
     public interface IServerProtocol
     {
-        int Port { get; set; }
+        int? Port { get; set; }
         IProtocol Protocol { get; set; }
     }
 }

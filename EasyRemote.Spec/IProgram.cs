@@ -4,7 +4,8 @@ namespace EasyRemote.Spec
 {
     public interface IProgram
     {
-        IList<IProtocol> Porotocols { get; set; }
+        string Name { get; set; }
+        IList<IProtocol> Protocols { get; }
 
         void ConnectTo(IServer server, IProtocol protocol);
     }
