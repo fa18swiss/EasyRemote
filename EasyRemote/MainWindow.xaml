@@ -1,8 +1,92 @@
 ﻿<Window x:Class="EasyRemote.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        Title="MainWindow" Height="350" Width="525">
+        xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
+        Title="EasyRemote" Height="600" Width="800">
     <Grid>
-        
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"></RowDefinition>
+            <RowDefinition Height="1*"></RowDefinition>
+        </Grid.RowDefinitions>
+        <Grid Grid.Row="0">
+            <Menu>
+                <MenuItem Header="_File">
+                    <MenuItem Header="_New conection..." />
+                    <MenuItem Header="_Open connection from file..." />
+                    <MenuItem Header="_Save connection" />
+                    <Separator />
+                    <MenuItem Header="_Exit" />
+                </MenuItem>
+                <MenuItem Header="_Edit">
+                    <MenuItem Header="_Edit connection" />
+                    <Separator />
+                    <MenuItem Header="_Add protocol" />
+                </MenuItem>
+                <MenuItem Header="_Tools">
+                    <MenuItem Header="_Check connection" />
+                    <MenuItem Header="_Rofl" />
+                </MenuItem>
+                <MenuItem Header="_About">
+                    <MenuItem Header="_About EasyRemote" />
+                </MenuItem>
+            </Menu>
+        </Grid>
+        <Grid Grid.Row="1" >
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="5" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+                <Grid Column="2">
+                    <TabControl TabStripPlacement="Top" Margin="0, 0, 0, 0">
+                        <TabItem Name="con1" Header="Connection Name 1">
+                        </TabItem>
+
+                    </TabControl>
+                </Grid>
+                <GridSplitter Grid.Column="1" Width="5" HorizontalAlignment="Stretch" />
+                <Grid Column="0">
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="*" />
+                            <RowDefinition Height="5" />
+                            <RowDefinition Height="*" />
+                        </Grid.RowDefinitions>
+                        <Grid Grid.Row="0">
+                            <Grid>
+                                <!-- if for some reason we have to add a row here is a grid -->
+                                <TreeView>
+                                    <TreeViewItem Header="Connection 1">
+                                        <TreeViewItem Header="prot1"/>
+                                        <TreeViewItem Header="prot2"/>
+                                        <TreeViewItem Header="prot3"/>
+                                    </TreeViewItem>
+                                    <TreeViewItem Header="Connection 2">
+                                        <TreeViewItem Header="prot1"/>
+                                        <TreeViewItem Header="prot2"/>
+                                        <TreeViewItem Header="prot3"/>
+                                    </TreeViewItem>
+                                </TreeView>
+                            </Grid>
+                        </Grid>
+                        <GridSplitter Grid.Row="1" Height="5" HorizontalAlignment="Stretch" />
+                        <Grid Grid.Row="2">
+                            <Grid Name="PropertyGridGrid">
+                                <!-- if for some reason we have to add a row here is a grid -->
+                                <!-- doesn't work 
+                                <xctk:PropertyGrid x:Name="PropertyGrid" AutoGenerateProperties="False">
+                                    <xctk:PropertyGrid.PropertyDefinitions>
+                                        <xctk:PropertyDefinition TargetProperties="Uhu" />
+                                        <xctk:PropertyDefinition TargetProperties="FavoriteColor" />
+                                        <xctk:PropertyDefinition TargetProperties="PetNames" />
+                                    </xctk:PropertyGrid.PropertyDefinitions>
+                                </xctk:PropertyGrid> -->
+                            </Grid>
+                        </Grid>
+                    </Grid>
+                </Grid>
+            </Grid>
+        </Grid>
     </Grid>
 </Window>
