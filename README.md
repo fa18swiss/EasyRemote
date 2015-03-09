@@ -1,2 +1,2 @@
 # EasyRemote
-EasyRemote is a open source client for multiple connextions
+EasyRemote is a open source client for multiple connexions
