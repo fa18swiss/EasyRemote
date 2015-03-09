@@ -12,5 +12,6 @@ namespace EasyRemote.Impl
 
         public string HostName { get; set; }
         public IList<IServerProtocol> Protocols { get; private set; }
+        public string Name { get; set; }
     }
 }

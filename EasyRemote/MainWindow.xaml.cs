@@ -1,4 +1,5 @@
-﻿using System;
+
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -14,6 +15,8 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using Xceed.Wpf.Toolkit;
+﻿using System.Windows;
+using EasyRemote.Spec;
 
 namespace EasyRemote
 {
@@ -22,8 +25,11 @@ namespace EasyRemote
     /// </summary>
     public partial class MainWindow : Window
     {
-        public MainWindow()
+        private readonly IConfig config;
+
+        public MainWindow(IConfig config)
         {
+            this.config = config;
             InitializeComponent();
         }
     }
