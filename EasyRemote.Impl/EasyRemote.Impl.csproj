@@ -48,7 +48,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Config.cs" />
+    <Compile Include="Extension\Port.cs" />
     <Compile Include="Facory\GenericFactory.cs" />
+    <Compile Include="Module\ImplModule.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="ServerGroup.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

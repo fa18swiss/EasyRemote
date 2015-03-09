@@ -104,6 +104,10 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\EasyRemote.Impl\EasyRemote.Impl.csproj">
+      <Project>{4E109BDE-63CA-4E82-9C4D-0A60DF6727B1}</Project>
+      <Name>EasyRemote.Impl</Name>
+    </ProjectReference>
     <ProjectReference Include="..\EasyRemote.Spec\EasyRemote.Spec.csproj">
       <Project>{ff371985-01ac-47da-a51e-eb4319f1b974}</Project>
       <Name>EasyRemote.Spec</Name>
