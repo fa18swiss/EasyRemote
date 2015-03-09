@@ -31,6 +31,8 @@ namespace EasyRemote
         {
             this.config = config;
             InitializeComponent();
+ 
+            TreeView.ItemsSource = config.RootGroup.Childrens;
         }
     }
 }
