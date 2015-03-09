@@ -4,7 +4,7 @@ namespace EasyRemote.Spec
 {
     public interface IConfig
     {
-        IList<IProgram> Programs { get; set; }
+        IList<IProgram> Programs { get; }
         IServerGroup RootGroup { get; set; }
 
         void Load(string path);

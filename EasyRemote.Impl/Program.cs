@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using EasyRemote.Spec;
 
 namespace EasyRemote.Impl
@@ -8,7 +9,7 @@ namespace EasyRemote.Impl
     {
         public Program()
         {
-            Protocols = new List<IProtocol>();
+            Protocols = new ObservableCollection<IProtocol>();
         }
 
         public string Name { get; set; }
