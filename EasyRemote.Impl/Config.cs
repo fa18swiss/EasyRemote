@@ -34,7 +34,8 @@ namespace EasyRemote.Impl
                 {
                     Name = "SSH",
                     DefaultPort = 22,
-                }
+                },
+                Port = 5000,
             });
             s.Protocols.Add(new ServerProtocol
             {

@@ -5,6 +5,7 @@
         xmlns:spec="clr-namespace:EasyRemote.Spec;assembly=EasyRemote.Spec"
         xmlns:self="clr-namespace:EasyRemote"
         xmlns:convertes="clr-namespace:EasyRemote.Convertes"
+        xmlns:sys="clr-namespace:System;assembly=mscorlib"
         Title="EasyRemote" Height="600" Width="800">
     <Grid>
         <Grid.RowDefinitions>
@@ -103,14 +104,10 @@
                         <Grid Grid.Row="2">
                             <Grid Name="PropertyGridGrid">
                                 <!-- if for some reason we have to add a row here is a grid -->
-                                <!-- doesn't work 
-                                <xctk:PropertyGrid x:Name="PropertyGrid" AutoGenerateProperties="False">
-                                    <xctk:PropertyGrid.PropertyDefinitions>
-                                        <xctk:PropertyDefinition TargetProperties="Uhu" />
-                                        <xctk:PropertyDefinition TargetProperties="FavoriteColor" />
-                                        <xctk:PropertyDefinition TargetProperties="PetNames" />
-                                    </xctk:PropertyGrid.PropertyDefinitions>
-                                </xctk:PropertyGrid> -->
+                                <xctk:PropertyGrid x:Name="_propertyGrid"
+                                     AutoGenerateProperties="True">
+                                    
+                                </xctk:PropertyGrid>
                             </Grid>
                         </Grid>
                     </Grid>

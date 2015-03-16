@@ -71,7 +71,7 @@ namespace EasyRemote
 
         private void LoadProperty(object ob)
         {
-            // TODO load property of object
+            _propertyGrid.SelectedObject = ob;
             Debug.Print("Load ob " + ob);
         }
     }
