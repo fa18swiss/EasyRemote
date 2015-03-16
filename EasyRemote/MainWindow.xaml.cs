@@ -1,21 +1,7 @@
-
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Diagnostics;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Forms;
 using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
-using Xceed.Wpf.Toolkit;
-﻿using System.Windows;
 using EasyRemote.Spec;
 
 namespace EasyRemote
@@ -25,14 +11,68 @@ namespace EasyRemote
     /// </summary>
     public partial class MainWindow : Window
     {
+        private enum Event
+        {
+            Click,
+            DoubleClick
+        }
+
         private readonly IConfig config;
 
         public MainWindow(IConfig config)
         {
             this.config = config;
             InitializeComponent();
- 
+
             TreeView.ItemsSource = config.RootGroup.Childrens;
+        }
+
+        private void TreeViewItem_OnDoubleClick(object sender, MouseButtonEventArgs e)
+        {
+            var item = sender as TreeViewItem;
+            if (item != null)
+            {
+                HandleEvent(item.Header, Event.DoubleClick);
+            }
+        }
+
+        private void TreeView_OnSelectedItemChanged(object sender, RoutedPropertyChangedEventArgs<object> e)
+        {
+            var tree = sender as TreeView;
+            if (tree != null)
+            {
+                HandleEvent(tree.SelectedItem, Event.Click);
+            }
+        }
+
+        private void HandleEvent(object ob, Event event_)
+        {
+            if (ob == null)
+            {
+                return;
+            }
+            if (event_ == Event.Click)
+            {
+                LoadProperty(ob);
+                return;
+            }
+            if (ob is IServer)
+            {
+            }
+            else if (ob is IServerProtocol)
+            {
+                var protocol = ob as IServerProtocol;
+                // TODO open connection
+            }
+            else if (ob is IServerGroup)
+            {
+            }
+        }
+
+        private void LoadProperty(object ob)
+        {
+            // TODO load property of object
+            Debug.Print("Load ob " + ob);
         }
     }
 }

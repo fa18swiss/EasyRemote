@@ -62,7 +62,12 @@
                                     <convertes:ProtocolPortConverter x:Key="ProtocolPortConverter"/>
                                 </Grid.Resources>
                                 <!-- if for some reason we have to add a row here is a grid -->
-                                <TreeView Grid.Column="0" Grid.Row="0" Name="TreeView" ItemTemplateSelector="{StaticResource InterfaceTemplateSelector}">
+                                <TreeView Grid.Column="0" Grid.Row="0" Name="TreeView" ItemTemplateSelector="{StaticResource InterfaceTemplateSelector}" SelectedItemChanged="TreeView_OnSelectedItemChanged">
+                                    <TreeView.ItemContainerStyle>
+                                        <Style TargetType="{x:Type TreeViewItem}">
+                                            <EventSetter Event="MouseDoubleClick" Handler="TreeViewItem_OnDoubleClick" />
+                                        </Style>
+                                    </TreeView.ItemContainerStyle>
                                     <TreeView.Resources>
                                         <HierarchicalDataTemplate DataType="{x:Type spec:IServerGroup}" ItemsSource="{Binding Childrens}">
                                             <StackPanel Orientation="Horizontal">
