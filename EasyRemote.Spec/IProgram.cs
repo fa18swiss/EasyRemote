@@ -8,6 +8,6 @@ namespace EasyRemote.Spec
         string Path { get; set; }
         IList<IProtocol> Protocols { get; }
 
-        void ConnectTo(IServer server, IProtocol protocol);
+        void ConnectTo(IServer server, IServerProtocol protocol);
     }
 }

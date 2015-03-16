@@ -30,30 +30,23 @@ namespace EasyRemote.Impl
                 HostName = "toot",
                 Name = "dsafsadf",
             });
-            var g = new ServerGroup
-            {
-                Name = "groa dsafsadf",
-            };
-            g.Childrens.Add(new Server
-            {
-                Name = "ch2",
-            });
-            RootGroup.Childrens.Add(g);
-            var s = new Server
-            {
-                Name = "toto"
-            };
-            s.Protocols.Add(new ServerProtocol
-            {
-                Protocol = ssh
-            });
-            s.Protocols.Add(new ServerProtocol
-            {
-                Protocol = vnc
-            });
-            RootGroup.Childrens.Add(s);
-            Programs.Add(new Program("Putty", "C:\\putty.exe",ssh));
-            Programs.Add(new Program("FileZilla","C:\\filezilla.exe", ftp,ssh));
+            RootGroup.Childrens.Add(new ServerGroup("groa dsafsadf",
+                new Server
+                {
+                    Name = "ch2",
+                }));
+            RootGroup.Childrens.Add(new Server("toto", null, null,
+                new ServerProtocol
+                {
+                    Protocol = ssh,
+                    Port = 5000,
+                },
+                new ServerProtocol
+                {
+                    Protocol = vnc
+                }));
+            Programs.Add(new Program("Putty", "C:\\putty.exe", ssh));
+            Programs.Add(new Program("FileZilla", "C:\\filezilla.exe", ftp, ssh));
         }
 
         public IList<IProgram> Programs { get; private set; }

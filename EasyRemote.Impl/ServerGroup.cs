@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using EasyRemote.Spec;
+using Microsoft.Practices.ObjectBuilder2;
 
 namespace EasyRemote.Impl
 {
@@ -9,6 +10,11 @@ namespace EasyRemote.Impl
         public ServerGroup()
         {
             Childrens = new ObservableCollection<IServerBase>();
+        }
+        public ServerGroup(string name, params IServerBase[] servers):this()
+        {
+            Name = name;
+            servers.ForEach(s => Childrens.Add(s));
         }
 
         public string Name { get; set; }
