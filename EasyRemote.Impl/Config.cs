@@ -45,8 +45,11 @@ namespace EasyRemote.Impl
                 {
                     Protocol = vnc
                 }));
-            Programs.Add(new Program("Putty", "C:\\putty.exe", ssh));
-            Programs.Add(new Program("FileZilla", "C:\\filezilla.exe", ftp, ssh));
+            Programs.Add(new Program("Putty", @"C:\Program Files (x86)\mRemoteNG\PuTTYNG.exe", ssh));
+            Programs.Add(new Program("FileZilla", @"C:\Program Files (x86)\FileZilla FTP Client\filezilla.exe", ftp, ssh));
+            Programs.Add(new Program("WinSCP", @"C:\Program Files (x86)\WinSCP\WinSCP.exe", ssh));
+            Programs.Add(new Program("TurboVNC", @"C:\Program Files\TurboVNC\vncviewer.exe", vnc));
+            Programs.Add(new Program("test", @"", vnc));
         }
 
         public IList<IProgram> Programs { get; private set; }
