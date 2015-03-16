@@ -59,6 +59,7 @@
                             <Grid>
                                 <Grid.Resources>
                                     <self:InterfaceTemplateSelector x:Key="InterfaceTemplateSelector" />
+                                    <convertes:ProtocolPorgramsConverter x:Key="ProtocolPorgramsConverter" />
                                 </Grid.Resources>
                                 <!-- if for some reason we have to add a row here is a grid -->
                                 <TreeView Grid.Column="0" Grid.Row="0" Name="TreeView" ItemTemplateSelector="{StaticResource InterfaceTemplateSelector}" SelectedItemChanged="TreeView_OnSelectedItemChanged">
@@ -86,7 +87,7 @@
                                                 <TextBlock Text="" Foreground="Green" />
                                             </StackPanel>
                                         </HierarchicalDataTemplate>
-                                        <DataTemplate DataType="{x:Type spec:IServerProtocol}">
+                                        <HierarchicalDataTemplate DataType="{x:Type spec:IServerProtocol}" ItemsSource="{Binding Converter={StaticResource ProtocolPorgramsConverter}}">
                                             <StackPanel Orientation="Horizontal">
                                                 <Image Source="/EasyRemote;component/Images/protocol.png" Margin="0,0,5,0" MaxHeight="24" MaxWidth="24"  />
                                                 <TextBlock Text="{Binding Protocol.Name}" />
@@ -94,7 +95,16 @@
                                                 <TextBlock Text="{Binding Port}" Foreground="Green" />
                                                 <TextBlock Text="" Foreground="Green" />
                                             </StackPanel>
-                                        </DataTemplate>
+                                        </HierarchicalDataTemplate>
+                                        <HierarchicalDataTemplate DataType="{x:Type spec:IProgram}" ItemsSource="{Binding Converter={StaticResource ProtocolPorgramsConverter}}">
+                                            <StackPanel Orientation="Horizontal">
+                                                <Image Source="/EasyRemote;component/Images/protocol.png" Margin="0,0,5,0" MaxHeight="24" MaxWidth="24"  />
+                                                <TextBlock Text="{Binding Name}" />
+                                                <TextBlock Text=" :" Foreground="Red" />
+                                                <TextBlock Text="{Binding Name}" Foreground="Red" />
+                                                <TextBlock Text="" Foreground="Red" />
+                                            </StackPanel>
+                                        </HierarchicalDataTemplate>
                                     </TreeView.Resources>
                                 </TreeView>
                             </Grid>

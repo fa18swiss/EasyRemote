@@ -9,6 +9,21 @@ namespace EasyRemote.Impl
         public Config()
         {
             Programs = new List<IProgram>();
+            var vnc = new Protocol
+            {
+                Name = "VNC",
+                DefaultPort = 1234,
+            };
+            var ssh = new Protocol
+            {
+                Name = "SSH",
+                DefaultPort = 22,
+            };
+            var ftp = new Protocol
+            {
+                Name = "FTP",
+                DefaultPort = 21,
+            };
             RootGroup = new ServerGroup();
             RootGroup.Childrens.Add(new Server
             {
@@ -21,7 +36,7 @@ namespace EasyRemote.Impl
             };
             g.Childrens.Add(new Server
             {
-                Name= "ch2",
+                Name = "ch2",
             });
             RootGroup.Childrens.Add(g);
             var s = new Server
@@ -30,22 +45,17 @@ namespace EasyRemote.Impl
             };
             s.Protocols.Add(new ServerProtocol
             {
-                Protocol = new Protocol
-                {
-                    Name = "SSH",
-                    DefaultPort = 22,
-                }
+                Protocol = ssh
             });
             s.Protocols.Add(new ServerProtocol
             {
-                Protocol = new Protocol
-                {
-                    Name = "VNC",
-                    DefaultPort = 1234,
-                }
+                Protocol = vnc
             });
             RootGroup.Childrens.Add(s);
+            Programs.Add(new Program("Putty", "C:\\putty.exe",ssh));
+            Programs.Add(new Program("FileZilla","C:\\filezilla.exe", ftp,ssh));
         }
+
         public IList<IProgram> Programs { get; private set; }
         public IServerGroup RootGroup { get; set; }
 
