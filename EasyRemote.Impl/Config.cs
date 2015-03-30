@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using EasyRemote.Spec;
 
 namespace EasyRemote.Impl
@@ -8,7 +9,10 @@ namespace EasyRemote.Impl
     {
         public Config()
         {
-            Programs = new List<IProgram>();
+            Programs = new ObservableCollection<IProgram>();
+            RootGroup = new ServerGroup();
+            Protocols = new ObservableCollection<IProtocol>();
+
             var vnc = new Protocol
             {
                 Name = "VNC",
@@ -24,7 +28,6 @@ namespace EasyRemote.Impl
                 Name = "FTP",
                 DefaultPort = 21,
             };
-            RootGroup = new ServerGroup();
             RootGroup.Childrens.Add(new Server
             {
                 HostName = "toot",
@@ -50,9 +53,13 @@ namespace EasyRemote.Impl
             Programs.Add(new Program("WinSCP", @"C:\Program Files (x86)\WinSCP\WinSCP.exe", ssh));
             Programs.Add(new Program("TurboVNC", @"C:\Program Files\TurboVNC\vncviewer.exe", vnc));
             Programs.Add(new Program("test", @"", vnc));
+            Protocols.Add(vnc);
+            Protocols.Add(ssh);
+            Protocols.Add(ftp);
         }
 
         public IList<IProgram> Programs { get; private set; }
+        public IList<IProtocol> Protocols { get; private set; }
         public IServerGroup RootGroup { get; set; }
 
         public void Load(string path)
