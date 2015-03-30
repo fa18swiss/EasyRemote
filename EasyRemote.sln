@@ -10,6 +10,12 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EasyRemote.Impl", "EasyRemote.Impl\EasyRemote.Impl.csproj", "{4E109BDE-63CA-4E82-9C4D-0A60DF6727B1}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EasyRemote.WinMgmt", "EasyRemote.WinMgmt\EasyRemote.WinMgmt.csproj", "{D7E74962-9143-44D5-B970-E6682072CE4D}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{E35BE600-63DC-498C-898C-C1AD9CCBBF14}"
+	ProjectSection(SolutionItems) = preProject
+		.nuget\NuGet.Config = .nuget\NuGet.Config
+		.nuget\NuGet.exe = .nuget\NuGet.exe
+		.nuget\NuGet.targets = .nuget\NuGet.targets
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
