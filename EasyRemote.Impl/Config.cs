@@ -50,6 +50,7 @@ namespace EasyRemote.Impl
             Programs.FirstOrDefault(p => p.Name.Equals("TurboVNC")).Path = @"C:\Program Files\TurboVNC\vncviewer.exe";
             Programs.FirstOrDefault(p => p.Name.Equals("Firefox")).Path = @"C:\Program Files (x86)\Mozilla Firefox\firefox.exe";
             Programs.FirstOrDefault(p => p.Name.Equals("Chrome")).Path = @"C:\Program Files (x86)\Google\Chrome\Application\chrome.exe";
+            Programs.FirstOrDefault(p => p.Name.Equals("InternetExplorer")).Path = @"C:\Program Files (x86)\Internet Explorer\iexplore.exe";
             Programs.FirstOrDefault(p => p.Name.Equals("RDP")).Path = @"mstsc";
            
         }

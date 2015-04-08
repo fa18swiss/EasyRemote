@@ -51,6 +51,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Module.cs" />
+    <Compile Include="Programs\InternetExplorer.cs" />
     <Compile Include="Programs\Chrome.cs" />
     <Compile Include="Programs\Firefox.cs" />
     <Compile Include="Programs\RDP.cs" />
