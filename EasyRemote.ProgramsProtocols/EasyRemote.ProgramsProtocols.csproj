@@ -49,6 +49,7 @@
     <Compile Include="Programs\InternetExplorer.cs" />
     <Compile Include="Programs\Chrome.cs" />
     <Compile Include="Programs\Firefox.cs" />
+    <Compile Include="Programs\Telnet.cs" />
     <Compile Include="Programs\RDP.cs" />
     <Compile Include="Programs\TurboVNC.cs" />
     <Compile Include="Programs\WinSCP.cs" />

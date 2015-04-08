@@ -21,6 +21,7 @@ namespace EasyRemote.Impl
             var ftp = Protocols.FirstOrDefault(p => p.Name.Equals("FTP"));
             var http = Protocols.FirstOrDefault(p => p.Name.Equals("HTTP"));
             var rdp = Protocols.FirstOrDefault(p => p.Name.Equals("RDP"));
+            var telnet = Protocols.FirstOrDefault(p => p.Name.Equals("Telnet"));
             RootGroup.Childrens.Add(new Server ("toot","dsafsadf",null,null, new ServerProtocol
             {
                 Protocol = ftp
@@ -33,6 +34,10 @@ namespace EasyRemote.Impl
                 new ServerProtocol
                 {
                     Protocol = rdp
+                },
+                new ServerProtocol
+                {
+                    Protocol = telnet
                 })));
             RootGroup.Childrens.Add(new Server("cuda1", "157.26.103.175", null, null,
                 new ServerProtocol
@@ -51,7 +56,8 @@ namespace EasyRemote.Impl
             Programs.FirstOrDefault(p => p.Name.Equals("Firefox")).Path = @"%ProgramFiles(x86)%\Mozilla Firefox\firefox.exe";
             Programs.FirstOrDefault(p => p.Name.Equals("Chrome")).Path = @"%ProgramFiles(x86)%\Google\Chrome\Application\chrome.exe";
             Programs.FirstOrDefault(p => p.Name.Equals("InternetExplorer")).Path = @"%ProgramFiles(x86)%\Internet Explorer\iexplore.exe";
-            Programs.FirstOrDefault(p => p.Name.Equals("RDP")).Path = @"%windir%\system32\mstsc.exe";
+            Programs.FirstOrDefault(p => p.Name.Equals("RDP")).Path = @"%windir%\System32\mstsc.exe";
+            Programs.FirstOrDefault(p => p.Name.Equals("Telnet")).Path = @"%windir%\sysnative\telnet.exe";
         }
 
         public IList<IProgram> Programs { get; private set; }
