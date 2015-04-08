@@ -87,9 +87,9 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Convertes\ProgramImageConverter.cs" />
-    <Compile Include="Convertes\ProtocolPorgramsConverter.cs" />
-    <Compile Include="Convertes\ProtocolPortConverter.cs" />
+    <Compile Include="Converters\ProgramImageConverter.cs" />
+    <Compile Include="Converters\ProtocolPorgramsConverter.cs" />
+    <Compile Include="Converters\ProtocolPortConverter.cs" />
     <Compile Include="IconsTools.cs" />
     <Compile Include="InterfaceTemplateSelector.cs" />
     <Compile Include="MainWindow.xaml.cs">

@@ -4,8 +4,8 @@
         xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
         xmlns:spec="clr-namespace:EasyRemote.Spec;assembly=EasyRemote.Spec"
         xmlns:self="clr-namespace:EasyRemote"
-        xmlns:convertes="clr-namespace:EasyRemote.Convertes"
         xmlns:sys="clr-namespace:System;assembly=mscorlib"
+        xmlns:converters="clr-namespace:EasyRemote.Converters"
         Title="EasyRemote" Height="600" Width="800">
     <Grid>
         <Grid.RowDefinitions>
@@ -60,8 +60,8 @@
                             <Grid>
                                 <Grid.Resources>
                                     <self:InterfaceTemplateSelector x:Key="InterfaceTemplateSelector" />
-                                    <convertes:ProtocolPorgramsConverter x:Key="ProtocolPorgramsConverter" />
-                                    <convertes:ProgramImageConverter x:Key="ProgramImageConverter" />
+                                    <converters:ProtocolPorgramsConverter x:Key="ProtocolPorgramsConverter" />
+                                    <converters:ProgramImageConverter x:Key="ProgramImageConverter" />
                                 </Grid.Resources>
                                 <!-- if for some reason we have to add a row here is a grid -->
                                 <TreeView Grid.Column="0" Grid.Row="0" Name="TreeView" ItemTemplateSelector="{StaticResource InterfaceTemplateSelector}" SelectedItemChanged="TreeView_OnSelectedItemChanged">
