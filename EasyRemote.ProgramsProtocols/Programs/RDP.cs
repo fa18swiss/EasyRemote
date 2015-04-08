@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Text;
 using EasyRemote.ProgramsProtocols.Protocols;
 using EasyRemote.Spec;
 
@@ -12,9 +13,17 @@ namespace EasyRemote.ProgramsProtocols.Programs
             
         }
 
-        public override void ConnectTo(IServer server, IServerProtocol protocol)
+        public override string ConnectTo(IServer server, IServerProtocol protocol)
         {
-            throw new NotImplementedException();
+            var builder = new StringBuilder();
+            builder.Append("/fullscreen /v:");
+            builder.Append(server.HostName);
+            if (protocol.Port.HasValue)
+            {
+                builder.Append(':');
+                builder.Append(protocol.Port.Value);
+            }
+            return builder.ToString();
         }
     }
 }

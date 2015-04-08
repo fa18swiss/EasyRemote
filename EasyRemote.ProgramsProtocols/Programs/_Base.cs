@@ -36,6 +36,6 @@ namespace EasyRemote.ProgramsProtocols.Programs
         {
             get { return protocols; }
         }
-        public abstract void ConnectTo(IServer server, IServerProtocol protocol);
+        public abstract string ConnectTo(IServer server, IServerProtocol protocol);
     }
 }

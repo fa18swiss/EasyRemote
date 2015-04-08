@@ -25,7 +25,7 @@ namespace EasyRemote.Impl
         public string Path { get; set; }
         public IList<IProtocol> Protocols { get; private set; }
 
-        public void ConnectTo(IServer server, IServerProtocol protocol)
+        public string ConnectTo(IServer server, IServerProtocol protocol)
         {
             throw new NotImplementedException();
         }

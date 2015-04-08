@@ -20,6 +20,7 @@ namespace EasyRemote.Impl
             var ssh = Protocols.FirstOrDefault(p => p.Name.Equals("SSH"));
             var ftp = Protocols.FirstOrDefault(p => p.Name.Equals("FTP"));
             var http = Protocols.FirstOrDefault(p => p.Name.Equals("HTTP"));
+            var rdp = Protocols.FirstOrDefault(p => p.Name.Equals("RDP"));
             RootGroup.Childrens.Add(new Server ("toot","dsafsadf",null, new ServerProtocol
             {
                 Protocol = ftp
@@ -28,6 +29,10 @@ namespace EasyRemote.Impl
                 new Server("srv2","srv2", "null", new ServerProtocol
                 {
                     Protocol = http
+                },
+                new ServerProtocol
+                {
+                    Protocol = rdp
                 })));
             RootGroup.Childrens.Add(new Server("toto", null, null,
                 new ServerProtocol
@@ -43,6 +48,7 @@ namespace EasyRemote.Impl
             Programs.FirstOrDefault(p => p.Name.Equals("FileZilla")).Path = @"C:\Program Files (x86)\FileZilla FTP Client\filezilla.exe";
             Programs.FirstOrDefault(p => p.Name.Equals("WinSCP")).Path = @"C:\Program Files (x86)\WinSCP\WinSCP.exe";
             Programs.FirstOrDefault(p => p.Name.Equals("TurboVNC")).Path = @"C:\Program Files\TurboVNC\vncviewer.exe";
+            Programs.FirstOrDefault(p => p.Name.Equals("RDP")).Path = @"mstsc";
            
         }
 

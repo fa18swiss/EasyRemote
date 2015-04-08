@@ -12,7 +12,7 @@ namespace EasyRemote.ProgramsProtocols.Programs
             
         }
 
-        public override void ConnectTo(IServer server, IServerProtocol protocol)
+        public override string ConnectTo(IServer server, IServerProtocol protocol)
         {
             throw new NotImplementedException();
         }

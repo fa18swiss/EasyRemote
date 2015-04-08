@@ -71,7 +71,10 @@ namespace EasyRemote
                     Debug.Print("program =" + program.Name);
                     Debug.Print("protocol =" + protocol.Protocol.Name);
                     Debug.Print("server =" + server.Name);
-                    program.ConnectTo(server, protocol);
+                    var args = program.ConnectTo(server, protocol);
+                    Debug.Print("args =" + args);
+                    // TODO change this
+                    Process.Start(program.Path, args);
                     // TODO open connection
                 }
             }
