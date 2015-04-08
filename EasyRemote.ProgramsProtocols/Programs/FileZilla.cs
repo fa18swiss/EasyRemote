@@ -18,7 +18,6 @@ namespace EasyRemote.ProgramsProtocols.Programs
             protocolsDictionnary.Add(ftp, "ftp");
             protocolsDictionnary.Add(ftps, "ftps");
         }
-
         public override string ConnectTo(IServer server, IServerProtocol protocol)
         {
             var builder = new StringBuilder();

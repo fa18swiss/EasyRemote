@@ -51,12 +51,15 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Module.cs" />
+    <Compile Include="Programs\Chrome.cs" />
+    <Compile Include="Programs\Firefox.cs" />
     <Compile Include="Programs\RDP.cs" />
     <Compile Include="Programs\TurboVNC.cs" />
     <Compile Include="Programs\WinSCP.cs" />
     <Compile Include="Programs\FileZilla.cs" />
     <Compile Include="Programs\Putty.cs" />
     <Compile Include="Programs\_Base.cs" />
+    <Compile Include="Programs\_HttpClient.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Protocols\RDP.cs" />
     <Compile Include="Protocols\FTPS.cs" />

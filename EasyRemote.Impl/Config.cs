@@ -48,6 +48,8 @@ namespace EasyRemote.Impl
             Programs.FirstOrDefault(p => p.Name.Equals("FileZilla")).Path = @"C:\Program Files (x86)\FileZilla FTP Client\filezilla.exe";
             Programs.FirstOrDefault(p => p.Name.Equals("WinSCP")).Path = @"C:\Program Files (x86)\WinSCP\WinSCP.exe";
             Programs.FirstOrDefault(p => p.Name.Equals("TurboVNC")).Path = @"C:\Program Files\TurboVNC\vncviewer.exe";
+            Programs.FirstOrDefault(p => p.Name.Equals("Firefox")).Path = @"C:\Program Files (x86)\Mozilla Firefox\firefox.exe";
+            Programs.FirstOrDefault(p => p.Name.Equals("Chrome")).Path = @"C:\Program Files (x86)\Google\Chrome\Application\chrome.exe";
             Programs.FirstOrDefault(p => p.Name.Equals("RDP")).Path = @"mstsc";
            
         }
