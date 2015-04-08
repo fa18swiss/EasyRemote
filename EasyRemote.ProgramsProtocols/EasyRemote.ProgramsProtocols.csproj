@@ -70,6 +70,10 @@
     <Compile Include="Util\AssemblyUtil.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\EasyRemote.Impl\EasyRemote.Impl.csproj">
+      <Project>{4e109bde-63ca-4e82-9c4d-0a60df6727b1}</Project>
+      <Name>EasyRemote.Impl</Name>
+    </ProjectReference>
     <ProjectReference Include="..\EasyRemote.Spec\EasyRemote.Spec.csproj">
       <Project>{FF371985-01AC-47DA-A51E-EB4319F1B974}</Project>
       <Name>EasyRemote.Spec</Name>

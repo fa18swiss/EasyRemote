@@ -1,6 +1,4 @@
-﻿using System;
-using System.Text;
-using EasyRemote.ProgramsProtocols.Protocols;
+﻿using System.Text;
 using EasyRemote.Spec;
 
 namespace EasyRemote.ProgramsProtocols.Programs

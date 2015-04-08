@@ -21,12 +21,12 @@ namespace EasyRemote.Impl
             var ftp = Protocols.FirstOrDefault(p => p.Name.Equals("FTP"));
             var http = Protocols.FirstOrDefault(p => p.Name.Equals("HTTP"));
             var rdp = Protocols.FirstOrDefault(p => p.Name.Equals("RDP"));
-            RootGroup.Childrens.Add(new Server ("toot","dsafsadf",null, new ServerProtocol
+            RootGroup.Childrens.Add(new Server ("toot","dsafsadf",null,null, new ServerProtocol
             {
                 Protocol = ftp
             }));
             RootGroup.Childrens.Add(new ServerGroup("groa dsafsadf",
-                new Server("srv2","srv2", "null", new ServerProtocol
+                new Server("srv2","srv2", null,null, new ServerProtocol
                 {
                     Protocol = http
                 },
@@ -34,15 +34,15 @@ namespace EasyRemote.Impl
                 {
                     Protocol = rdp
                 })));
-            RootGroup.Childrens.Add(new Server("toto", null, null,
+            RootGroup.Childrens.Add(new Server("cuda1", "157.26.103.175", null, null,
                 new ServerProtocol
                 {
                     Protocol = ssh,
-                    Port = 5000,
                 },
                 new ServerProtocol
                 {
-                    Protocol = vnc
+                    Protocol = vnc,
+                    Port = 5910,
                 }));
             Programs.FirstOrDefault(p => p.Name.Equals("Putty")).Path = @"C:\Program Files (x86)\mRemoteNG\PuTTYNG.exe";
             Programs.FirstOrDefault(p => p.Name.Equals("FileZilla")).Path = @"C:\Program Files (x86)\FileZilla FTP Client\filezilla.exe";
