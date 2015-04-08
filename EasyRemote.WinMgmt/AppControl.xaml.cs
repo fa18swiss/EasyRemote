@@ -56,16 +56,17 @@ namespace WpfAppControl
 
         public string ExeName
         {
-            get
-            {
-                return exeName;
-            }
-            set
-            {
-                exeName = value;				
-            }
+            get { return exeName; }
+            set { exeName = value; }
         }
 
+        private double ratio = 1.25;
+
+        public double Ratio
+        {
+            get { return ratio; }
+            set { ratio = value; }
+        }
 
         [DllImport("user32.dll", EntryPoint="GetWindowThreadProcessId",  SetLastError=true,
              CharSet=CharSet.Unicode, ExactSpelling=true,
@@ -173,10 +174,8 @@ namespace WpfAppControl
 
         private void SetRightMoveWindow()
         {
-
             if (this._appWin != IntPtr.Zero)
             {
-                double ratio = 1.25;
                 MoveWindow(_appWin, 0, 0, (int)(this.ActualWidth * ratio), (int)(this.ActualHeight * ratio), true);
             }
         }
