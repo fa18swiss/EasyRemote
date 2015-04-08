@@ -67,6 +67,7 @@
     <Compile Include="Protocols\Telnet.cs" />
     <Compile Include="Protocols\SSH.cs" />
     <Compile Include="Protocols\_Base.cs" />
+    <Compile Include="Util\AssemblyUtil.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\EasyRemote.Spec\EasyRemote.Spec.csproj">
