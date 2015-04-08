@@ -1,9 +1,9 @@
 ﻿namespace EasyRemote.ProgramsProtocols.Protocols
 {
-    class RDP : _Base
+    class Serial : _Base
     {
-        public RDP() 
-            : base("RDP", 3389)
+        public Serial()
+            : base("Serial", -1)
         {
             
         }

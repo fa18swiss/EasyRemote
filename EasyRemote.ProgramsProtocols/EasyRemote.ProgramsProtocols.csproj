@@ -58,6 +58,7 @@
     <Compile Include="Programs\_Base.cs" />
     <Compile Include="Programs\_HttpClient.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Protocols\Serial.cs" />
     <Compile Include="Protocols\RDP.cs" />
     <Compile Include="Protocols\FTPS.cs" />
     <Compile Include="Protocols\HTTPS.cs" />

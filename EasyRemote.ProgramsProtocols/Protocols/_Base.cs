@@ -6,12 +6,12 @@ namespace EasyRemote.ProgramsProtocols.Protocols
     internal abstract class _Base : IProtocol
     {
         private readonly string name;
-        private readonly int port;
+        private readonly int defaultPort;
 
-        protected _Base(String name, int port)
+        protected _Base(String name, int defaultPort)
         {
             this.name = name;
-            this.port = port;
+            this.defaultPort = defaultPort;
         }
         public override int GetHashCode()
         {
@@ -30,7 +30,7 @@ namespace EasyRemote.ProgramsProtocols.Protocols
         }
         public int DefaultPort
         {
-            get { return port; }
+            get { return defaultPort; }
             set { }
         }
     }

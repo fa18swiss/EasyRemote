@@ -6,8 +6,8 @@ namespace EasyRemote.ProgramsProtocols.Programs
 {
     class Putty : _Base
     {
-        public Putty(SSH ssh, Protocols.Telnet telnet)
-            : base("Putty", ssh, telnet)
+        public Putty(SSH ssh, Protocols.Telnet telnet, Serial serial)
+            : base("Putty", ssh, telnet, serial)
         {
             
         }
