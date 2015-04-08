@@ -4,6 +4,7 @@ using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media;
 using EasyRemote.Convertes;
+using EasyRemote.Impl.Extension;
 using EasyRemote.Spec;
 
 namespace EasyRemote
@@ -74,7 +75,7 @@ namespace EasyRemote
                     var args = program.ConnectTo(server, protocol);
                     Debug.Print("args =" + args);
                     // TODO change this
-                    Process.Start(program.Path, args);
+                    Process.Start(program.GetPath(), args);
                     // TODO open connection
                 }
             }

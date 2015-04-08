@@ -52,6 +52,7 @@
   <ItemGroup>
     <Compile Include="Config.cs" />
     <Compile Include="Extension\Auth.cs" />
+    <Compile Include="Extension\Path.cs" />
     <Compile Include="Extension\Port.cs" />
     <Compile Include="Facory\GenericFactory.cs" />
     <Compile Include="Module\ImplModule.cs" />

@@ -44,15 +44,14 @@ namespace EasyRemote.Impl
                     Protocol = vnc,
                     Port = 5910,
                 }));
-            Programs.FirstOrDefault(p => p.Name.Equals("Putty")).Path = @"C:\Program Files (x86)\mRemoteNG\PuTTYNG.exe";
-            Programs.FirstOrDefault(p => p.Name.Equals("FileZilla")).Path = @"C:\Program Files (x86)\FileZilla FTP Client\filezilla.exe";
-            Programs.FirstOrDefault(p => p.Name.Equals("WinSCP")).Path = @"C:\Program Files (x86)\WinSCP\WinSCP.exe";
+            Programs.FirstOrDefault(p => p.Name.Equals("Putty")).Path = @"%ProgramFiles(x86)%\mRemoteNG\PuTTYNG.exe";
+            Programs.FirstOrDefault(p => p.Name.Equals("FileZilla")).Path = @"%ProgramFiles(x86)%\FileZilla FTP Client\filezilla.exe";
+            Programs.FirstOrDefault(p => p.Name.Equals("WinSCP")).Path = @"%ProgramFiles(x86)%\WinSCP\WinSCP.exe";
             Programs.FirstOrDefault(p => p.Name.Equals("TurboVNC")).Path = @"C:\Program Files\TurboVNC\vncviewer.exe";
-            Programs.FirstOrDefault(p => p.Name.Equals("Firefox")).Path = @"C:\Program Files (x86)\Mozilla Firefox\firefox.exe";
-            Programs.FirstOrDefault(p => p.Name.Equals("Chrome")).Path = @"C:\Program Files (x86)\Google\Chrome\Application\chrome.exe";
-            Programs.FirstOrDefault(p => p.Name.Equals("InternetExplorer")).Path = @"C:\Program Files (x86)\Internet Explorer\iexplore.exe";
-            Programs.FirstOrDefault(p => p.Name.Equals("RDP")).Path = @"mstsc";
-           
+            Programs.FirstOrDefault(p => p.Name.Equals("Firefox")).Path = @"%ProgramFiles(x86)%\Mozilla Firefox\firefox.exe";
+            Programs.FirstOrDefault(p => p.Name.Equals("Chrome")).Path = @"%ProgramFiles(x86)%\Google\Chrome\Application\chrome.exe";
+            Programs.FirstOrDefault(p => p.Name.Equals("InternetExplorer")).Path = @"%ProgramFiles(x86)%\Internet Explorer\iexplore.exe";
+            Programs.FirstOrDefault(p => p.Name.Equals("RDP")).Path = @"%windir%\system32\mstsc.exe";
         }
 
         public IList<IProgram> Programs { get; private set; }
