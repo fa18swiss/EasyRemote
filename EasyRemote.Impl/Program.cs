@@ -6,6 +6,7 @@ using Microsoft.Practices.ObjectBuilder2;
 
 namespace EasyRemote.Impl
 {
+    [Obsolete]
     internal class Program : IProgram
     {
         public Program()

@@ -3,6 +3,7 @@ using EasyRemote.Spec;
 
 namespace EasyRemote.Impl
 {
+    [Obsolete]
     internal class Protocol : IProtocol
     {
         public string Name { get; set; }

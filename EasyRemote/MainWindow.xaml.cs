@@ -68,9 +68,10 @@ namespace EasyRemote
                     var server = serverItem.Header as IServer;
                     var protocol = serverProtocolItem.Header as IServerProtocol;
                     var program = ob as IProgram;
-                    Debug.Print("program =" + program);
-                    Debug.Print("protocol =" + protocol);
-                    Debug.Print("server =" + server);
+                    Debug.Print("program =" + program.Name);
+                    Debug.Print("protocol =" + protocol.Protocol.Name);
+                    Debug.Print("server =" + server.Name);
+                    program.ConnectTo(server, protocol);
                     // TODO open connection
                 }
             }
