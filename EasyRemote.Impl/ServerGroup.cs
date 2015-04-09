@@ -42,7 +42,7 @@ namespace EasyRemote.Impl
 
         [Browsable(false)] // not shown in property grid
         [JsonConverter(typeof(ServerBaseConverter))]
-        public IList<IServerBase> Childrens { get; private set; }
+        public IList<IServerBase> Childrens { get; set; }
 
     }
 }
