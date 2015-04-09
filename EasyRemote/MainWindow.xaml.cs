@@ -163,6 +163,78 @@ namespace EasyRemote
             }
         }
 
-        
+
+        private void MenuDeleteItem_OnClick(object sender, RoutedEventArgs e)
+        {
+            var selected = TreeView.SelectedItem;
+            if (selected == null || selected is IProgram)
+            {
+                return;
+            }
+            var result = MessageBox.Show(this, "Are you sure ?", "Delete", MessageBoxButton.YesNo,
+                MessageBoxImage.Question);
+            if (result != MessageBoxResult.Yes)
+            {
+                return;
+            }
+
+            Debug.Print("Delete {0}", selected);
+            if (selected is IServer)
+            {
+                Delete(selected as IServer, config.RootGroup);
+            }
+            else if (selected is IServerProtocol)
+            {
+                Delete(selected as IServerProtocol, config.RootGroup);
+            }
+            else if (selected is IServerGroup)
+            {
+                Delete(selected as IServerGroup, config.RootGroup);
+            }
+        }
+
+        private void Delete(IServerBase server, IServerGroup group)
+        {
+            foreach (var c in group.Childrens)
+            {
+                if (server.Equals(c))
+                {
+                    group.Childrens.Remove(c);
+                    return;
+                }
+                if (c is IServerGroup)
+                {
+                    Delete(server, c as IServerGroup);
+                }
+            }
+        }
+
+        private void Delete(IServerProtocol serverProtocol, IServerGroup group)
+        {
+            foreach (var c in group.Childrens)
+            {
+                
+                if (c is IServerGroup)
+                {
+                    Delete(serverProtocol, c as IServerGroup);
+                }
+                else if (c is IServer)
+                {
+                    Delete(serverProtocol, c as IServer);
+                }
+            }
+        }
+        private void Delete(IServerProtocol serverProtocol, IServer server)
+        {
+            foreach (var c in server.Protocols)
+            {
+                if (serverProtocol.Equals(c))
+                {
+                    server.Protocols.Remove(c);
+                    return;
+                }
+            }
+        }
+  
     }
 }

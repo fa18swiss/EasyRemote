@@ -27,6 +27,8 @@
                     <MenuItem Header="_Add group" Click="MenuAddGroup_Click" />
                     <MenuItem Header="_Add server" Click="MenuAddServer_Click" />
                     <MenuItem Header="_Add protocol" Click="MenuAddProtocol_Click" />
+                    <Separator />
+                    <MenuItem Header="_Delete item" Click="MenuDeleteItem_OnClick" />
                 </MenuItem>
                 <MenuItem Header="_Tools">
                     <MenuItem Header="_Check connection" />
