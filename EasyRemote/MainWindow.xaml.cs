@@ -8,6 +8,7 @@ using EasyRemote.Impl.Extension;
 using EasyRemote.Spec;
 using EasyRemote.Spec.Factory;
 using Microsoft.Practices.Unity;
+using Microsoft.Win32;
 
 
 namespace EasyRemote
@@ -235,7 +236,43 @@ namespace EasyRemote
 
         private void OpenConnectionFromFile_OnClick(object sender, RoutedEventArgs e)
         {
-            throw new System.NotImplementedException();
+            var fileDialog = new OpenFileDialog
+            {
+                Filter = "JSON file (*.json)|*.json",
+                Multiselect = false,
+                RestoreDirectory = true
+            };
+
+            var result = fileDialog.ShowDialog();
+            if (result.HasValue && result.Value)
+            {
+                config.Load(fileDialog.FileName);
+                TreeView.ItemsSource = null;
+                TreeView.ItemsSource = config.RootGroup.Childrens; //refresh view
+            }
+        }
+
+        private void SaveConnection_OnClick(object sender, RoutedEventArgs e)
+        {
+            if (config.RootGroup != null)
+            {
+                var fileDialog = new SaveFileDialog
+                {
+                    AddExtension = true,
+                    DefaultExt = "json",
+                    Filter = "JSON (*.json)|*.json"
+                };
+                var result = fileDialog.ShowDialog();
+                if (result.HasValue && result.Value)
+                {
+                    config.Save(fileDialog.FileName);
+                }
+            }
+            else
+            {
+                MessageBox.Show("At least one connection is required", "Error", MessageBoxButton.OK,
+                    MessageBoxImage.Error);
+            }
         }
     }
 }

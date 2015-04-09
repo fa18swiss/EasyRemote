@@ -24,12 +24,12 @@ namespace EasyRemote.Impl
             var http = programsProtocols.Protocols.FirstOrDefault(p => p.Name.Equals("HTTP"));
             var rdp = programsProtocols.Protocols.FirstOrDefault(p => p.Name.Equals("RDP"));
             var telnet = programsProtocols.Protocols.FirstOrDefault(p => p.Name.Equals("Telnet"));
-            RootGroup.Childrens.Add(new Server ("toot","dsafsadf",null,null, new ServerProtocol
+            RootGroup.Childrens.Add(new Server ("Tapir borgne","Ste-Marie",null,null, new ServerProtocol
             {
                 Protocol = ftp
             }));
-            RootGroup.Childrens.Add(new ServerGroup("groa dsafsadf",
-                new Server("srv2","srv2", null,null, new ServerProtocol
+            RootGroup.Childrens.Add(new ServerGroup("Courgette farcie",
+                new Server("Tringle à rideaux","Abemus PAPAM", null,null, new ServerProtocol
                 {
                     Protocol = http
                 },
@@ -41,7 +41,7 @@ namespace EasyRemote.Impl
                 {
                     Protocol = telnet
                 })));
-            RootGroup.Childrens.Add(new Server("cuda1", "157.26.103.175", null, null,
+            RootGroup.Childrens.Add(new Server("Poulpe au coulis", "157.26.103.175", null, null,
                 new ServerProtocol
                 {
                     Protocol = ssh,

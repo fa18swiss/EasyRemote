@@ -22,10 +22,8 @@ namespace EasyRemote.Impl.Converters.JSON
         {
             var tempList = serializer.Deserialize<IList<ServerBaseHelper>>(reader).ToList<ServerBaseHelper>();
             var returnList = new ObservableCollection<IServerBase>();
-            Debug.Print(tempList.Count+"");
             foreach (var s in tempList)
             {
-                Debug.Print(s.Type+ "");
                 if (s.Type == ServerClassType.Server)
                 {
                     returnList.Add(new Server(s));
@@ -35,7 +33,6 @@ namespace EasyRemote.Impl.Converters.JSON
                     returnList.Add(new ServerGroup(s));
                 }
             }
-            Debug.Print(returnList.Count+"");
             return returnList;
         }
 

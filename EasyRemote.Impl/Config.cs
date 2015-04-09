@@ -32,9 +32,14 @@ namespace EasyRemote.Impl
                 Programs = conf.Programs;
                 RootGroup = conf.RootGroup;
             }
-            catch (Exception e)
+            catch (IOException e)
             {
                 MessageBox.Show(e.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+
+            }
+            catch (Exception e)
+            {
+                MessageBox.Show("Error while loading configurations from file...\r\n" + e.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
             
         }
@@ -46,9 +51,14 @@ namespace EasyRemote.Impl
                 string output = JsonConvert.SerializeObject(this);
                 File.WriteAllText(path, output, Encoding.UTF8);
             }
-            catch (Exception e)
+            catch (IOException e)
             {
                 MessageBox.Show(e.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+
+            }
+            catch (Exception e)
+            {
+                MessageBox.Show("Error while saving configurations into file... \r\n" + e.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
     }
