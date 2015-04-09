@@ -28,9 +28,6 @@ namespace EasyRemote
             this.container = container;
             ProtocolPorgramsConverter.ProgramsProtocolsList = programsProtocolsList;
             InitializeComponent();
-            string path = @"C:\zgeg.json";
-            config.Save(path);
-            config.Load(path);
             TreeView.ItemsSource = config.RootGroup.Childrens;
         }
 
@@ -127,6 +124,11 @@ namespace EasyRemote
         }
 
         private void MenuAddServer_Click(object sender, RoutedEventArgs e)
+        {
+            throw new System.NotImplementedException();
+        }
+
+        private void OpenConnectionFromFile_OnClick(object sender, RoutedEventArgs e)
         {
             throw new System.NotImplementedException();
         }

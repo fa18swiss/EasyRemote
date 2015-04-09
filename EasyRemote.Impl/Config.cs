@@ -53,7 +53,7 @@ namespace EasyRemote.Impl
                 string output = JsonConvert.SerializeObject(this);
                 File.WriteAllText(path, output, Encoding.UTF8);
             }
-            catch (IOException e)
+            catch (Exception e)
             {
                 MessageBox.Show(e.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
