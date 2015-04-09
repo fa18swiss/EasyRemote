@@ -27,8 +27,8 @@ namespace EasyRemote.Impl
         {
             try
             {
-                string input = File.ReadAllText(path);
-                Config conf = JsonConvert.DeserializeObject<Config>(input);
+                var input = File.ReadAllText(path);
+                var conf = JsonConvert.DeserializeObject<Config>(input);
                 Programs = conf.Programs;
                 RootGroup = conf.RootGroup;
             }
@@ -48,7 +48,7 @@ namespace EasyRemote.Impl
         {
             try
             {
-                string output = JsonConvert.SerializeObject(this);
+                var output = JsonConvert.SerializeObject(this);
                 File.WriteAllText(path, output, Encoding.UTF8);
             }
             catch (IOException e)

@@ -2,7 +2,6 @@
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using EasyRemote.Impl.Converters.JSON;
-using EasyRemote.Impl.JSON;
 using EasyRemote.Spec;
 using Microsoft.Practices.ObjectBuilder2;
 using Newtonsoft.Json;
@@ -25,7 +24,7 @@ namespace EasyRemote.Impl
             protocols.ForEach(p => Protocols.Add(p));
         }
 
-        public Server(ServerBaseHelper helper) : this()
+        public Server(IServer helper) : this()
         {
             HostName = helper.HostName;
             DefaultUsername = helper.DefaultUsername;
