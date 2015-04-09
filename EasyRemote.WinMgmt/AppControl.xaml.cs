@@ -19,12 +19,15 @@ namespace WpfAppControl
             public int unused;
         }
 
-        public AppControl()
+        public AppControl(String exeName, String arguments)
         {
             InitializeComponent();
             this.SizeChanged += new SizeChangedEventHandler(OnSizeChanged);
-            this.Loaded += new RoutedEventHandler(OnVisibleChanged);
+            this.Loaded += new RoutedEventHandler(OnLoaded);//new RoutedEventHandler(OnVisibleChanged);
             this.SizeChanged += new SizeChangedEventHandler(OnResize);
+
+            this.exeName = exeName;
+            this.arguments = arguments;
         }
 
         ~AppControl()
@@ -57,7 +60,15 @@ namespace WpfAppControl
         public string ExeName
         {
             get { return exeName; }
-            set { exeName = value; }
+            set { }
+        }
+
+        private string arguments = "";
+
+        public string Arguments
+        {
+            get { return arguments; }
+            set { }
         }
 
         private double ratio = 1.25;
@@ -104,6 +115,12 @@ namespace WpfAppControl
         private const int GWL_STYLE = (-16);
         private const int WS_VISIBLE = 0x10000000;
         private const int WS_CHILD = 0x40000000;
+        private const int WS_CAPTION = 0xc00000;
+        private const int WS_SYSMENU = 0x80000;
+        private const int WS_THICKFRAME = 0x40000;
+        private const int WS_MINIMIZE = 0x20000000;
+        private const int WS_MAXIMIZEBOX = 0x20000;
+
 
         
         /// <summary>
@@ -122,6 +139,11 @@ namespace WpfAppControl
         /// <param name="e">Not used</param>
         protected void OnVisibleChanged(object s, RoutedEventArgs e)
         {
+           
+        }
+
+        protected void OnLoaded(object sender, RoutedEventArgs routedEventArgs)
+        {
             // If control needs to be initialized/created
             if (_iscreated == false)
             {
@@ -134,7 +156,7 @@ namespace WpfAppControl
 
                 try
                 {
-                    var procInfo = new ProcessStartInfo(this.exeName);
+                    var procInfo = new ProcessStartInfo(this.exeName, this.arguments);
                     procInfo.WorkingDirectory = System.IO.Path.GetDirectoryName(this.exeName);
                     // Start the process
                     _childp = Process.Start(procInfo);
@@ -144,6 +166,10 @@ namespace WpfAppControl
 
                     // Get the main handle
                     _appWin = _childp.MainWindowHandle;
+
+                    _childp.Exited += ProcessExited;
+                    _childp.Disposed += ProcessExited;
+                    Debug.Print("U WOT M8");
                 }
                 catch (Exception ex)
                 {
@@ -154,13 +180,28 @@ namespace WpfAppControl
                 var helper = new WindowInteropHelper(Window.GetWindow(this.AppContainer));
                 SetParent(_appWin, helper.Handle);
 
+                var actualStyle = GetWindowLong(_appWin, GWL_STYLE);
+
+                actualStyle = actualStyle & ~WS_CAPTION;
+                actualStyle = actualStyle & ~WS_SYSMENU;
+                actualStyle = actualStyle & ~WS_THICKFRAME;
+                actualStyle = actualStyle & ~WS_MINIMIZE;
+                actualStyle = actualStyle & ~WS_MAXIMIZEBOX;
+
                 // Remove border and whatnot
                 SetWindowLongA(_appWin, GWL_STYLE, WS_VISIBLE);
 
                 // Move the window to overlay it on this window
                 //MoveWindow(_appWin, 0, 0, (int)this.ActualWidth, (int)this.ActualHeight, true);
                 SetRightMoveWindow();
+
+
             }
+        }
+
+        void ProcessExited(object sender, EventArgs e)
+        {
+            Debug.Print("EXITED");
         }
 
         /// <summary>
