@@ -43,9 +43,13 @@
                     <ColumnDefinition Width="*" />
                 </Grid.ColumnDefinitions>
                 <Grid Column="2">
-                    <TabControl TabStripPlacement="Top" Margin="0, 0, 0, 0">
+                    <TabControl TabStripPlacement="Top" Margin="0, 0, 0, 0" Name="mainTabControl">
                         <TabItem Name="con1" Header="Connection Name 1" />
-
+                        <TabItem Name ="TestTabItem" Header="TestHeader">
+                            <Grid Name="TestGrid">
+                                
+                            </Grid>
+                        </TabItem>
                     </TabControl>
                 </Grid>
                 <GridSplitter Grid.Column="1" Width="5" HorizontalAlignment="Stretch" />

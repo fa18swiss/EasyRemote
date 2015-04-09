@@ -5,7 +5,10 @@ using System.Windows.Input;
 using System.Windows.Media;
 using EasyRemote.Converters;
 using EasyRemote.Impl.Extension;
+using EasyRemote.ProgramsProtocols.Programs;
 using EasyRemote.Spec;
+using WpfAppControl;
+
 
 namespace EasyRemote
 {
@@ -21,8 +24,11 @@ namespace EasyRemote
             this.config = config;
             ProtocolPorgramsConverter.Config = config;
             InitializeComponent();
-
+            string path = @"C:\zgeg.json";
+            //config.Save(path);
+            //config.Load(path);
             TreeView.ItemsSource = config.RootGroup.Childrens;
+            AddProcessToTabControl(@"C:\Program Files (x86)\PuTTY\putty.exe", "-load \"cuda1\"");
         }
 
         private static T GetParent<T>(DependencyObject ob)
@@ -75,10 +81,36 @@ namespace EasyRemote
                     var args = program.ConnectTo(server, protocol);
                     Debug.Print("args =" + args);
                     // TODO change this
-                    Process.Start(program.GetPath(), args);
+                    AddProcessToTabControl(program.GetPath(), args);
                     // TODO open connection
                 }
             }
+        }
+
+        private void AddProcessToTabControl(string programPath, string arguments)
+        {
+            TabItem item = new TabItem();
+            var app = new AppWrapper(programPath, arguments, this);
+
+            item.Header = programPath;
+
+            //Grid newGrid = new Grid();
+
+            //ColumnDefinition col1 = new ColumnDefinition();
+            //RowDefinition row1 = new RowDefinition();
+
+
+
+            //Grid.SetColumn(app,0);
+            //Grid.SetRow(app, 0);
+
+            //newGrid.ColumnDefinitions.Add(col1);
+            //newGrid.RowDefinitions.Add(row1);
+            //newGrid.Children.Add(app);
+            item.Content = app;
+            mainTabControl.Items.Add(item);
+            mainTabControl.SelectedItem = item;
+
         }
 
         private void TreeView_OnSelectedItemChanged(object sender, RoutedPropertyChangedEventArgs<object> e)
