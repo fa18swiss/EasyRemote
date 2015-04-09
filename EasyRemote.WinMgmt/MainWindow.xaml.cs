@@ -26,8 +26,8 @@ namespace EasyRemote.WinMgmt
         {
             InitializeComponent();
             AppControl app = new AppControl();
-            app.ExeName = @"C:\Program Files (x86)\PuTTY\putty.exe";
-            //app.ExeName = @"notepad.exe";
+            //app.ExeName = @"C:\Program Files (x86)\PuTTY\putty.exe";
+            app.ExeName = @"notepad.exe";
             //Button app = new Button();
             
             Grid.SetColumn(app,0);

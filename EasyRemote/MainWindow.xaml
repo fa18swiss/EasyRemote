@@ -60,7 +60,7 @@
                             <Grid>
                                 <Grid.Resources>
                                     <self:InterfaceTemplateSelector x:Key="InterfaceTemplateSelector" />
-                                    <convertes:ProtocolPorgramsConverter x:Key="ProtocolPorgramsConverter" />
+                                    <convertes:ProtocolPortConverter x:Key="ProtocolPorgramsConverter" />
                                     <convertes:ProgramImageConverter x:Key="ProgramImageConverter" />
                                 </Grid.Resources>
                                 <!-- if for some reason we have to add a row here is a grid -->

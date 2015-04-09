@@ -6,6 +6,7 @@ using System.Windows.Media;
 using EasyRemote.Convertes;
 using EasyRemote.Spec;
 
+
 namespace EasyRemote
 {
     /// <summary>
@@ -20,7 +21,9 @@ namespace EasyRemote
             this.config = config;
             ProtocolPorgramsConverter.Config = config;
             InitializeComponent();
-
+            string path = @"C:\zgeg.json";
+            config.Save(path);
+            //config.Load(path);
             TreeView.ItemsSource = config.RootGroup.Childrens;
         }
 
