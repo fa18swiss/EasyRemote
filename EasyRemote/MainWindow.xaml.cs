@@ -107,7 +107,6 @@ namespace EasyRemote
 
         private void MenuAddGroup_Click(object sender, RoutedEventArgs e)
         {
-            Debug.Print("Selected {0}", TreeView.SelectedItem);
             var selected = TreeView.SelectedItem;
             if (selected == null)
             {
@@ -125,10 +124,45 @@ namespace EasyRemote
             newGroup.Name = "[New]";
             group.Childrens.Add(newGroup);
         }
-
+        private void AddNewServer(IServerGroup group)
+        {
+            var newGroup = container.Resolve<IFactory<IServer>>().Create();
+            newGroup.Name = "[New]";
+            group.Childrens.Add(newGroup);
+        }
+        private void AddNewProtocol(IServer server)
+        {
+            var ask = container.Resolve<AskProtocol>();
+            ask.Filter(server);
+            if (ask.SelectedProtocol != null)
+            {
+                var serverProtocol = container.Resolve<IFactory<IServerProtocol>>().Create();
+                serverProtocol.Protocol = ask.SelectedProtocol;
+                server.Protocols.Add(serverProtocol);
+            }
+        }
         private void MenuAddServer_Click(object sender, RoutedEventArgs e)
         {
-            throw new System.NotImplementedException();
+            var selected = TreeView.SelectedItem;
+            if (selected == null)
+            {
+                AddNewServer(config.RootGroup);
+            }
+            if (selected is IServerGroup)
+            {
+                AddNewServer(selected as IServerGroup);
+            }
         }
+
+        private void MenuAddProtocol_Click(object sender, RoutedEventArgs e)
+        {
+            var selected = TreeView.SelectedItem;
+            if (selected is IServer)
+            {
+                AddNewProtocol(selected as IServer);
+            }
+        }
+
+        
     }
 }

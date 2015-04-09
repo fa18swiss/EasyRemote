@@ -1,18 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Diagnostics;
 using System.IO;
 using System.Text;
 using System.Windows.Forms;
 using EasyRemote.Impl.Converters.JSON;
 using EasyRemote.Spec;
 using Newtonsoft.Json;
-using System.Windows;
-using System.Linq;
-using System.Net;
-using EasyRemote.Spec;
-using Microsoft.Practices.Unity;
 
 namespace EasyRemote.Impl
 {

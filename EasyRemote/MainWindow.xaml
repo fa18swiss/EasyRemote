@@ -26,7 +26,7 @@
                     <Separator />
                     <MenuItem Header="_Add group" Click="MenuAddGroup_Click" />
                     <MenuItem Header="_Add server" Click="MenuAddServer_Click" />
-                    <MenuItem Header="_Add protocol" />
+                    <MenuItem Header="_Add protocol" Click="MenuAddProtocol_Click" />
                 </MenuItem>
                 <MenuItem Header="_Tools">
                     <MenuItem Header="_Check connection" />

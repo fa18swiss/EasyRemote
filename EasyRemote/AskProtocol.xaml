@@ -1,0 +1,22 @@
+﻿<Window x:Class="EasyRemote.AskProtocol"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="AskProtocol" Height="300" Width="300">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+        <ListBox Grid.Column="0" Grid.Row="0" Name="ListBox" ItemsSource="{Binding}" MouseDoubleClick="ListBox_MouseDoubleClick">
+            <ListBox.ItemTemplate>
+                <DataTemplate>
+                    <TextBlock Text="{Binding Name}"/>
+                </DataTemplate>
+            </ListBox.ItemTemplate>
+        </ListBox>
+        <Button Grid.Column="0" Grid.Row="1" Click="Button_Click">Ok</Button>
+    </Grid>
+</Window>
