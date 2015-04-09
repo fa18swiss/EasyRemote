@@ -8,12 +8,9 @@ using EasyRemote.Converters;
 using EasyRemote.Impl.Extension;
 using EasyRemote.ProgramsProtocols.Programs;
 using EasyRemote.Spec;
-<<<<<<< HEAD
-using WpfAppControl;
-=======
 using EasyRemote.Spec.Factory;
 using Microsoft.Practices.Unity;
->>>>>>> 4279adc0d61215e4e8f3a1f88f5244cd364d25b0
+using WpfAppControl;
 
 
 namespace EasyRemote
@@ -39,12 +36,11 @@ namespace EasyRemote
             this.container = container;
             ProtocolPorgramsConverter.ProgramsProtocolsList = programsProtocolsList;
             InitializeComponent();
-<<<<<<< HEAD
+
             string path = @"C:\zgeg.json";
             //config.Save(path);
             //config.Load(path);
-=======
->>>>>>> 4279adc0d61215e4e8f3a1f88f5244cd364d25b0
+
             TreeView.ItemsSource = config.RootGroup.Childrens;
             AddProcessToTabControl(@"C:\Program Files (x86)\PuTTY\putty.exe", "-load \"cuda1\"");
         }
