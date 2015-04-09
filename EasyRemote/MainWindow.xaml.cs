@@ -104,7 +104,6 @@ namespace EasyRemote
 
         private void MenuAddGroup_Click(object sender, RoutedEventArgs e)
         {
-            Debug.Print("Selected {0}", TreeView.SelectedItem);
             var selected = TreeView.SelectedItem;
             if (selected == null)
             {
@@ -122,10 +121,116 @@ namespace EasyRemote
             newGroup.Name = "[New]";
             group.Childrens.Add(newGroup);
         }
-
+        private void AddNewServer(IServerGroup group)
+        {
+            var newGroup = container.Resolve<IFactory<IServer>>().Create();
+            newGroup.Name = "[New]";
+            group.Childrens.Add(newGroup);
+        }
+        private void AddNewProtocol(IServer server)
+        {
+            var ask = container.Resolve<AskProtocol>();
+            ask.Filter(server);
+            if (ask.SelectedProtocol != null)
+            {
+                var serverProtocol = container.Resolve<IFactory<IServerProtocol>>().Create();
+                serverProtocol.Protocol = ask.SelectedProtocol;
+                server.Protocols.Add(serverProtocol);
+            }
+        }
         private void MenuAddServer_Click(object sender, RoutedEventArgs e)
         {
-            throw new System.NotImplementedException();
+            var selected = TreeView.SelectedItem;
+            if (selected == null)
+            {
+                AddNewServer(config.RootGroup);
+            }
+            if (selected is IServerGroup)
+            {
+                AddNewServer(selected as IServerGroup);
+            }
+        }
+
+        private void MenuAddProtocol_Click(object sender, RoutedEventArgs e)
+        {
+            var selected = TreeView.SelectedItem;
+            if (selected is IServer)
+            {
+                AddNewProtocol(selected as IServer);
+            }
+        }
+
+
+        private void MenuDeleteItem_OnClick(object sender, RoutedEventArgs e)
+        {
+            var selected = TreeView.SelectedItem;
+            if (selected == null || selected is IProgram)
+            {
+                return;
+            }
+            var result = MessageBox.Show(this, "Are you sure ?", "Delete", MessageBoxButton.YesNo,
+                MessageBoxImage.Question);
+            if (result != MessageBoxResult.Yes)
+            {
+                return;
+            }
+
+            Debug.Print("Delete {0}", selected);
+            if (selected is IServer)
+            {
+                Delete(selected as IServer, config.RootGroup);
+            }
+            else if (selected is IServerProtocol)
+            {
+                Delete(selected as IServerProtocol, config.RootGroup);
+            }
+            else if (selected is IServerGroup)
+            {
+                Delete(selected as IServerGroup, config.RootGroup);
+            }
+        }
+
+        private void Delete(IServerBase server, IServerGroup group)
+        {
+            foreach (var c in group.Childrens)
+            {
+                if (server.Equals(c))
+                {
+                    group.Childrens.Remove(c);
+                    return;
+                }
+                if (c is IServerGroup)
+                {
+                    Delete(server, c as IServerGroup);
+                }
+            }
+        }
+
+        private void Delete(IServerProtocol serverProtocol, IServerGroup group)
+        {
+            foreach (var c in group.Childrens)
+            {
+                
+                if (c is IServerGroup)
+                {
+                    Delete(serverProtocol, c as IServerGroup);
+                }
+                else if (c is IServer)
+                {
+                    Delete(serverProtocol, c as IServer);
+                }
+            }
+        }
+        private void Delete(IServerProtocol serverProtocol, IServer server)
+        {
+            foreach (var c in server.Protocols)
+            {
+                if (serverProtocol.Equals(c))
+                {
+                    server.Protocols.Remove(c);
+                    return;
+                }
+            }
         }
 
         private void OpenConnectionFromFile_OnClick(object sender, RoutedEventArgs e)

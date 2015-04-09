@@ -16,7 +16,7 @@
             <Menu>
                 <MenuItem Header="_File">
                     <MenuItem Header="_New conection..." />
-                    <MenuItem Header="_Open connection from file..." />
+                    <MenuItem Header="_Open connection from file..." Click="OpenConnectionFromFile_OnClick" />
                     <MenuItem Header="_Save connection" />
                     <Separator />
                     <MenuItem Header="_Exit" />
