@@ -1,12 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
+using EasyRemote.Impl.Converters.JSON;
 using EasyRemote.Spec;
 using Newtonsoft.Json;
 
-namespace EasyRemote.Impl.Converters.JSON
+namespace EasyRemote.Impl.JSON
 {
     public class ServerBaseHelper : IServer, IServerGroup
     {

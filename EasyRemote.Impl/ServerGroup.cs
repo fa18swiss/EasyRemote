@@ -1,8 +1,8 @@
 ﻿using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
-using System.Windows.Forms;
 using EasyRemote.Impl.Converters.JSON;
+using EasyRemote.Impl.JSON;
 using EasyRemote.Spec;
 using Microsoft.Practices.ObjectBuilder2;
 using Newtonsoft.Json;

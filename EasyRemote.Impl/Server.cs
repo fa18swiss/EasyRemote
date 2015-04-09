@@ -2,6 +2,7 @@
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using EasyRemote.Impl.Converters.JSON;
+using EasyRemote.Impl.JSON;
 using EasyRemote.Spec;
 using Microsoft.Practices.ObjectBuilder2;
 using Newtonsoft.Json;

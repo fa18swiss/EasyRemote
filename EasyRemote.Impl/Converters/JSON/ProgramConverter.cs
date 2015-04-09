@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using EasyRemote.Impl.JSON;
 using EasyRemote.Spec;
 using Newtonsoft.Json;
 
