@@ -55,6 +55,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DefaultConfig.cs" />
+    <Compile Include="ProgramsProtocolsList.cs" />
     <Compile Include="Config.cs" />
     <Compile Include="Converters\JSON\GenericConverter.cs" />
     <Compile Include="Converters\JSON\GenericListConverter.cs" />
