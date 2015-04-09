@@ -142,8 +142,14 @@ namespace EasyRemote
 
         private void LoadProperty(object ob)
         {
-            _propertyGrid.SelectedObject = ob;
-            Debug.Print("Load ob " + ob);
+            if (ob is IProgram)
+            {
+                _propertyGrid.SelectedObject = null;
+            }
+            else
+            {
+                _propertyGrid.SelectedObject = ob;
+            }
         }
 
         private void MenuAddGroup_Click(object sender, RoutedEventArgs e)
@@ -220,7 +226,6 @@ namespace EasyRemote
                 return;
             }
 
-            Debug.Print("Delete {0}", selected);
             if (selected is IServer)
             {
                 Delete(selected as IServer, config.RootGroup);

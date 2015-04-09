@@ -53,6 +53,7 @@ namespace EasyRemote.Impl
         [Category("Settings")]
         public string Name { get; set; }
 
+        [Browsable(false)]
         public ServerClassType Type {
             get { return ServerClassType.Server; }
         }
