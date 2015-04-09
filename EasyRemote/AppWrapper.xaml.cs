@@ -4,6 +4,7 @@ using System.Windows.Controls;
 using System.Runtime.InteropServices;
 using System.Diagnostics;
 using System.Windows.Interop;
+using EasyRemote;
 
 namespace WpfAppControl
 {
@@ -19,7 +20,7 @@ namespace WpfAppControl
             public int unused;
         }
 
-        public AppWrapper(String exeName, String arguments, Control mainParent)
+        public AppWrapper(String exeName, String arguments, MainWindow mainParent, TabItem parentTabItem)
         {
             InitializeComponent();
             this.SizeChanged += new SizeChangedEventHandler(OnSizeChanged);
@@ -29,6 +30,7 @@ namespace WpfAppControl
             this.exeName = exeName;
             this.arguments = arguments;
             this.mainParent = mainParent;
+            this.parentTabItem = parentTabItem;
         }
 
         ~AppWrapper()
@@ -78,12 +80,8 @@ namespace WpfAppControl
             set { ratio = value; }
         }
 
-        private Control mainParent = null;
-
-        public Control MainParent
-        {
-            get { return mainParent; }
-        }
+        private MainWindow mainParent = null;
+        private TabItem parentTabItem = null;
 
         [DllImport("user32.dll", EntryPoint="GetWindowThreadProcessId",  SetLastError=true,
              CharSet=CharSet.Unicode, ExactSpelling=true,
@@ -108,10 +106,6 @@ namespace WpfAppControl
         [DllImport("user32.dll", SetLastError=true)]
         private static extern bool MoveWindow(IntPtr hwnd, int x, int y, int cx, int cy, bool repaint);
 
-        [DllImport("user32.dll", CharSet = System.Runtime.InteropServices.CharSet.Auto)]
-
-        private static extern bool ShowWindow(IntPtr hwnd, int nCmdShow); 
-
         private const int SWP_NOOWNERZORDER = 0x200;
         private const int SWP_NOREDRAW = 0x8;
         private const int SWP_NOZORDER = 0x4;
@@ -135,7 +129,8 @@ namespace WpfAppControl
         private const int WS_BORDER = 0x800000;
         private const int WS_DLGFRAME = 0x00400000;
         private const int WS_EX_DLGMODALFRAME = 0x00000001;
-
+        private const int WS_MINIMIZEBOX      = 0x00020000;
+        private const int WS_OVERLAPPED       = 0x00000000;
 
         
         /// <summary>
@@ -182,8 +177,8 @@ namespace WpfAppControl
                     // Get the main handle
                     _appWin = _childp.MainWindowHandle;
 
+                    _childp.EnableRaisingEvents = true;
                     _childp.Exited += ProcessExited;
-                    _childp.Disposed += ProcessExited;
                     Debug.Print("U WOT M8");
                 }
                 catch (Exception ex)
@@ -198,24 +193,23 @@ namespace WpfAppControl
                 var actualStyle = GetWindowLong(_appWin, GWL_STYLE);
 
                 Debug.Print(actualStyle+"");
-                /*
+                
                 actualStyle = actualStyle & ~WS_CAPTION;
                 actualStyle = actualStyle & ~WS_SYSMENU;
                 actualStyle = actualStyle & ~WS_THICKFRAME;
                 actualStyle = actualStyle & ~WS_MINIMIZE;
                 actualStyle = actualStyle & ~WS_MAXIMIZEBOX;
-                actualStyle = actualStyle & ~WS_VISIBLE;*/
-                actualStyle &= ~(WS_CAPTION | WS_THICKFRAME | WS_MINIMIZE | WS_MAXIMIZE | WS_SYSMENU | WS_MAXIMIZEBOX);
+                
                 Debug.Print(actualStyle + "");
                 
 
                 // Remove border and whatnot
-                SetWindowLongA(_appWin, GWL_STYLE, WS_VISIBLE & ~(WS_CAPTION | WS_THICKFRAME | WS_MINIMIZE | WS_MAXIMIZE | WS_SYSMENU | WS_MAXIMIZEBOX));
+                SetWindowLongA(_appWin, GWL_STYLE, (int)actualStyle);
                 //SetWindowLongA(_appWin, GWL_STYLE, (int)actualStyle & ~(WS_BORDER | WS_DLGFRAME | WS_THICKFRAME));
 
                 var actualExStyle = GetWindowLong(_appWin, GWL_EXSTYLE);
-               // SetWindowLongA(_appWin, GWL_EXSTYLE, (int)actualExStyle & ~(~WS_EX_DLGMODALFRAME));
-
+                SetWindowLongA(_appWin, GWL_EXSTYLE, (int)actualExStyle | WS_EX_DLGMODALFRAME);
+    
 
                 // Move the window to overlay it on this window
                 //MoveWindow(_appWin, 0, 0, (int)this.ActualWidth, (int)this.ActualHeight, true);
@@ -227,7 +221,7 @@ namespace WpfAppControl
 
         void ProcessExited(object sender, EventArgs e)
         {
-            Debug.Print("EXITED");
+            mainParent.RemoveTabItem(parentTabItem);
         }
 
         /// <summary>
