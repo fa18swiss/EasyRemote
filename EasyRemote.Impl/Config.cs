@@ -16,7 +16,7 @@ namespace EasyRemote.Impl
             Programs = new List<IProgram>();
         }
 
-        [JsonConverter(typeof(GenericListConverter<Program, IProgram>))]
+        [JsonConverter(typeof(ProgramConverter))]
         public IList<IProgram> Programs { get; protected set; }
 
 

@@ -20,7 +20,7 @@ namespace EasyRemote.Impl
         public string Password { get; set; }
 
         [Browsable(false)]
-        [JsonConverter(typeof(GenericConverter<Protocol>))]
+        [JsonConverter(typeof(ProtocolConverter))]
         public IProtocol Protocol { get; set; }
     }
 }
