@@ -1,4 +1,5 @@
 using System.Diagnostics;
+using System.Reflection;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
@@ -20,6 +21,11 @@ namespace EasyRemote
         private readonly IConfig config;
         private readonly IProgramsProtocolsList programsProtocolsList;
         private readonly IUnityContainer container;
+
+        public static RoutedCommand AddGroup = new RoutedCommand();
+        public static RoutedCommand AddServer = new RoutedCommand();
+        public static RoutedCommand AddProtocol = new RoutedCommand();
+        public static RoutedCommand DeleteItem = new RoutedCommand();
 
         public MainWindow(IConfig config ,IProgramsProtocolsList programsProtocolsList, IUnityContainer container)
         {
@@ -134,6 +140,7 @@ namespace EasyRemote
         {
             var ask = container.Resolve<AskProtocol>();
             ask.Filter(server);
+            ask.ShowDialog();
             if (ask.SelectedProtocol != null)
             {
                 var serverProtocol = container.Resolve<IFactory<IServerProtocol>>().Create();
