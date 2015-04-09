@@ -83,15 +83,13 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-<<<<<<< HEAD
     <Page Include="AppWrapper.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
-=======
+    </Page>
     <Page Include="AskProtocol.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
->>>>>>> 4279adc0d61215e4e8f3a1f88f5244cd364d25b0
     </Page>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
@@ -101,13 +99,11 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-<<<<<<< HEAD
     <Compile Include="AppWrapper.xaml.cs">
       <DependentUpon>AppWrapper.xaml</DependentUpon>
-=======
+    </Compile>
     <Compile Include="AskProtocol.xaml.cs">
       <DependentUpon>AskProtocol.xaml</DependentUpon>
->>>>>>> 4279adc0d61215e4e8f3a1f88f5244cd364d25b0
     </Compile>
     <Compile Include="Converters\ProgramImageConverter.cs" />
     <Compile Include="Converters\ProtocolPorgramsConverter.cs" />
