@@ -14,9 +14,10 @@ namespace EasyRemote.Impl
         {
             Protocols = new ObservableCollection<IServerProtocol>();
         }
-        public Server(string hostName, string defaultUsername, string defaultPassword, params IServerProtocol[] protocols)
+        public Server(string name, string hostName, string defaultUsername, string defaultPassword, params IServerProtocol[] protocols)
             : this()
         {
+            Name = name;
             HostName = hostName;
             DefaultUsername = defaultUsername;
             DefaultPassword = defaultPassword;

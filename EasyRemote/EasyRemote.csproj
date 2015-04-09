@@ -50,21 +50,15 @@
       <HintPath>..\packages\Newtonsoft.Json.6.0.8\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
     <Reference Include="System" />
-    <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
-    <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
-    <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Core" />
-    <Reference Include="System.Xml.Linq" />
-    <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="System.Xaml">
       <RequiredTargetFramework>4.0</RequiredTargetFramework>
     </Reference>
     <Reference Include="WindowsBase" />
     <Reference Include="PresentationCore" />
     <Reference Include="PresentationFramework" />
-    <Reference Include="WindowsFormsIntegration" />
     <Reference Include="Xceed.Wpf.AvalonDock">
       <HintPath>..\packages\Extended.Wpf.Toolkit.2.4\lib\net40\Xceed.Wpf.AvalonDock.dll</HintPath>
     </Reference>
@@ -97,9 +91,9 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Convertes\ProgramImageConverter.cs" />
-    <Compile Include="Convertes\ProtocolPorgramsConverter.cs" />
-    <Compile Include="Convertes\ProtocolPortConverter.cs" />
+    <Compile Include="Converters\ProgramImageConverter.cs" />
+    <Compile Include="Converters\ProtocolPorgramsConverter.cs" />
+    <Compile Include="Converters\ProtocolPortConverter.cs" />
     <Compile Include="IconsTools.cs" />
     <Compile Include="InterfaceTemplateSelector.cs" />
     <Compile Include="MainWindow.xaml.cs">
@@ -139,6 +133,10 @@
     <ProjectReference Include="..\EasyRemote.Impl\EasyRemote.Impl.csproj">
       <Project>{4E109BDE-63CA-4E82-9C4D-0A60DF6727B1}</Project>
       <Name>EasyRemote.Impl</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\EasyRemote.ProgramsProtocols\EasyRemote.ProgramsProtocols.csproj">
+      <Project>{ce3a11bd-243c-4da3-aa20-b3aa8b6ffdb4}</Project>
+      <Name>EasyRemote.ProgramsProtocols</Name>
     </ProjectReference>
     <ProjectReference Include="..\EasyRemote.Spec\EasyRemote.Spec.csproj">
       <Project>{ff371985-01ac-47da-a51e-eb4319f1b974}</Project>

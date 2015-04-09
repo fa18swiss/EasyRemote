@@ -1,18 +1,21 @@
 ﻿using System;
 using System.Globalization;
+using System.Linq;
 using System.Windows.Data;
 using EasyRemote.Spec;
 
-namespace EasyRemote.Convertes
+namespace EasyRemote.Converters
 {
-    public class ProtocolPortConverter : IValueConverter
+    public class ProtocolPorgramsConverter : IValueConverter
     {
+        // TODO change, this is bad !
+        public static IConfig Config { get; set; }
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
             var serverProtocol = value as IServerProtocol;
             if (serverProtocol != null)
             {
-                return serverProtocol.Port.HasValue ? serverProtocol.Port.Value.ToString() : string.Format("{0} (default)",serverProtocol.Protocol.DefaultPort);
+                return Config.Programs.Where(p => p.Protocols.Contains(serverProtocol.Protocol));
             }
             return null;
         }

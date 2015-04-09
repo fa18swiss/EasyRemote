@@ -3,7 +3,8 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media;
-using EasyRemote.Convertes;
+using EasyRemote.Converters;
+using EasyRemote.Impl.Extension;
 using EasyRemote.Spec;
 
 
@@ -71,9 +72,13 @@ namespace EasyRemote
                     var server = serverItem.Header as IServer;
                     var protocol = serverProtocolItem.Header as IServerProtocol;
                     var program = ob as IProgram;
-                    Debug.Print("program =" + program);
-                    Debug.Print("protocol =" + protocol);
-                    Debug.Print("server =" + server);
+                    Debug.Print("program =" + program.Name);
+                    Debug.Print("protocol =" + protocol.Protocol.Name);
+                    Debug.Print("server =" + server.Name);
+                    var args = program.ConnectTo(server, protocol);
+                    Debug.Print("args =" + args);
+                    // TODO change this
+                    Process.Start(program.GetPath(), args);
                     // TODO open connection
                 }
             }

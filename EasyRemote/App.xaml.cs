@@ -13,6 +13,7 @@ namespace EasyRemote
         {
             IUnityContainer container = new UnityContainer();
             new ImplModule().Load(container);
+            new ProgramsProtocols.Module().Load(container);
 
             var mainWindow = container.Resolve<MainWindow>();
             mainWindow.Show();

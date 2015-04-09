@@ -9,61 +9,63 @@ using EasyRemote.Impl.Converters.JSON;
 using EasyRemote.Spec;
 using Newtonsoft.Json;
 using System.Windows;
-
+using System.Linq;
+using System.Net;
+using EasyRemote.Spec;
+using Microsoft.Practices.Unity;
 
 namespace EasyRemote.Impl
 {
     internal class Config : IConfig
     {
-        public Config()
+        public Config(IUnityContainer container)
         {
-            Programs = new ObservableCollection<IProgram>();
+            Programs = new ReadOnlyCollection<IProgram>(container.ResolveAll<IProgram>().ToList());
+            Protocols = new ReadOnlyCollection<IProtocol>(container.ResolveAll<IProtocol>().ToList());
             RootGroup = new ServerGroup();
-            Protocols = new ObservableCollection<IProtocol>();
 
-            var vnc = new Protocol
+            var vnc = Protocols.FirstOrDefault(p => p.Name.Equals("VNC"));
+            var ssh = Protocols.FirstOrDefault(p => p.Name.Equals("SSH"));
+            var ftp = Protocols.FirstOrDefault(p => p.Name.Equals("FTP"));
+            var http = Protocols.FirstOrDefault(p => p.Name.Equals("HTTP"));
+            var rdp = Protocols.FirstOrDefault(p => p.Name.Equals("RDP"));
+            var telnet = Protocols.FirstOrDefault(p => p.Name.Equals("Telnet"));
+            RootGroup.Childrens.Add(new Server ("toot","dsafsadf",null,null, new ServerProtocol
             {
-                Name = "VNC",
-                DefaultPort = 1234,
-            };
-            var ssh = new Protocol
-            {
-                Name = "SSH",
-                DefaultPort = 22,
-            };
-            var ftp = new Protocol
-            {
-                Name = "FTP",
-                DefaultPort = 21,
-            };
-            RootGroup.Childrens.Add(new Server
-            {
-                HostName = "toot",
-                Name = "dsafsadf",
-            });
+                Protocol = ftp
+            }));
             RootGroup.Childrens.Add(new ServerGroup("groa dsafsadf",
-                new Server
+                new Server("srv2","srv2", null,null, new ServerProtocol
                 {
-                    Name = "ch2",
-                }));
-            RootGroup.Childrens.Add(new Server("toto", null, null,
-                new ServerProtocol
-                {
-                    Protocol = ssh,
-                    Port = 5000,
+                    Protocol = http
                 },
                 new ServerProtocol
                 {
-                    Protocol = vnc
+                    Protocol = rdp
+                },
+                new ServerProtocol
+                {
+                    Protocol = telnet
+                })));
+            RootGroup.Childrens.Add(new Server("cuda1", "157.26.103.175", null, null,
+                new ServerProtocol
+                {
+                    Protocol = ssh,
+                },
+                new ServerProtocol
+                {
+                    Protocol = vnc,
+                    Port = 5910,
                 }));
-            Programs.Add(new Program("Putty", @"C:\Program Files (x86)\mRemoteNG\PuTTYNG.exe", ssh));
-            Programs.Add(new Program("FileZilla", @"C:\Program Files (x86)\FileZilla FTP Client\filezilla.exe", ftp, ssh));
-            Programs.Add(new Program("WinSCP", @"C:\Program Files (x86)\WinSCP\WinSCP.exe", ssh));
-            Programs.Add(new Program("TurboVNC", @"C:\Program Files\TurboVNC\vncviewer.exe", vnc));
-            Programs.Add(new Program("test", @"", vnc));
-            Protocols.Add(vnc);
-            Protocols.Add(ssh);
-            Protocols.Add(ftp);
+            Programs.FirstOrDefault(p => p.Name.Equals("Putty")).Path = @"%ProgramFiles(x86)%\mRemoteNG\PuTTYNG.exe";
+            Programs.FirstOrDefault(p => p.Name.Equals("FileZilla")).Path = @"%ProgramFiles(x86)%\FileZilla FTP Client\filezilla.exe";
+            Programs.FirstOrDefault(p => p.Name.Equals("WinSCP")).Path = @"%ProgramFiles(x86)%\WinSCP\WinSCP.exe";
+            Programs.FirstOrDefault(p => p.Name.Equals("TurboVNC")).Path = @"C:\Program Files\TurboVNC\vncviewer.exe";
+            Programs.FirstOrDefault(p => p.Name.Equals("Firefox")).Path = @"%ProgramFiles(x86)%\Mozilla Firefox\firefox.exe";
+            Programs.FirstOrDefault(p => p.Name.Equals("Chrome")).Path = @"%ProgramFiles(x86)%\Google\Chrome\Application\chrome.exe";
+            Programs.FirstOrDefault(p => p.Name.Equals("InternetExplorer")).Path = @"%ProgramFiles(x86)%\Internet Explorer\iexplore.exe";
+            Programs.FirstOrDefault(p => p.Name.Equals("RDP")).Path = @"%windir%\System32\mstsc.exe";
+            Programs.FirstOrDefault(p => p.Name.Equals("Telnet")).Path = @"%windir%\sysnative\telnet.exe";
         }
 
         [JsonConverter(typeof(GenericListConverter<Program, IProgram>))]

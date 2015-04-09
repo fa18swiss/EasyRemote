@@ -8,6 +8,7 @@ using Newtonsoft.Json;
 
 namespace EasyRemote.Impl
 {
+    [Obsolete]
     internal class Program : IProgram
     {
         public Program()
@@ -28,7 +29,7 @@ namespace EasyRemote.Impl
         [JsonConverter(typeof(GenericListConverter<Protocol, IProtocol>))]
         public IList<IProtocol> Protocols { get; private set; }
 
-        public void ConnectTo(IServer server, IServerProtocol protocol)
+        public string ConnectTo(IServer server, IServerProtocol protocol)
         {
             throw new NotImplementedException();
         }
