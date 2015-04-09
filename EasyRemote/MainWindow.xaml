@@ -7,6 +7,19 @@
         xmlns:sys="clr-namespace:System;assembly=mscorlib"
         xmlns:converters="clr-namespace:EasyRemote.Converters"
         Title="EasyRemote" Height="600" Width="800">
+ 
+    <Window.InputBindings>
+        <KeyBinding Key="D1" Modifiers="Control" Command="{x:Static self:MainWindow.AddGroup}"/>
+        <KeyBinding Key="D2" Modifiers="Control" Command="{x:Static self:MainWindow.AddServer}"/>
+        <KeyBinding Key="D3" Modifiers="Control" Command="{x:Static self:MainWindow.AddProtocol}"/>
+        <KeyBinding Key="D" Modifiers="Control" Command="{x:Static self:MainWindow.DeleteItem}"/>
+    </Window.InputBindings>
+    <Window.CommandBindings>
+        <CommandBinding Command="{x:Static self:MainWindow.AddGroup}" Executed="MenuAddGroup_Click" />
+        <CommandBinding Command="{x:Static self:MainWindow.AddServer}" Executed="MenuAddServer_Click" />
+        <CommandBinding Command="{x:Static self:MainWindow.AddProtocol}" Executed="MenuAddProtocol_Click" />
+        <CommandBinding Command="{x:Static self:MainWindow.DeleteItem}" Executed="MenuDeleteItem_OnClick" />
+    </Window.CommandBindings>
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
@@ -24,9 +37,11 @@
                 <MenuItem Header="_Edit">
                     <MenuItem Header="_Edit connection" />
                     <Separator />
-                    <MenuItem Header="_Add group" Click="MenuAddGroup_Click" />
-                    <MenuItem Header="_Add server" Click="MenuAddServer_Click" />
-                    <MenuItem Header="_Add protocol" />
+                    <MenuItem Header="_Add group" Click="MenuAddGroup_Click" InputGestureText="Ctrl+1" />
+                    <MenuItem Header="_Add server" Click="MenuAddServer_Click" InputGestureText="Ctrl+2" />
+                    <MenuItem Header="_Add protocol" Click="MenuAddProtocol_Click" InputGestureText="Ctrl+3" />
+                    <Separator />
+                    <MenuItem Header="_Delete item"  Click="MenuDeleteItem_OnClick" InputGestureText="Ctrl+D" />
                 </MenuItem>
                 <MenuItem Header="_Tools">
                     <MenuItem Header="_Check connection" />
@@ -45,9 +60,13 @@
                     <ColumnDefinition Width="*" />
                 </Grid.ColumnDefinitions>
                 <Grid Column="2">
-                    <TabControl TabStripPlacement="Top" Margin="0, 0, 0, 0">
+                    <TabControl TabStripPlacement="Top" Margin="0, 0, 0, 0" Name="mainTabControl">
                         <TabItem Name="con1" Header="Connection Name 1" />
-
+                        <TabItem Name ="TestTabItem" Header="TestHeader">
+                            <Grid Name="TestGrid">
+                                
+                            </Grid>
+                        </TabItem>
                     </TabControl>
                 </Grid>
                 <GridSplitter Grid.Column="1" Width="5" HorizontalAlignment="Stretch" />

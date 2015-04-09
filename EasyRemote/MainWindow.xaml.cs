@@ -1,14 +1,17 @@
 using System.Diagnostics;
+using System.Reflection;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media;
 using EasyRemote.Converters;
 using EasyRemote.Impl.Extension;
+using EasyRemote.ProgramsProtocols.Programs;
 using EasyRemote.Spec;
 using EasyRemote.Spec.Factory;
 using Microsoft.Practices.Unity;
 using Microsoft.Win32;
+using WpfAppControl;
 
 
 namespace EasyRemote
@@ -22,6 +25,11 @@ namespace EasyRemote
         private readonly IProgramsProtocolsList programsProtocolsList;
         private readonly IUnityContainer container;
 
+        public static RoutedCommand AddGroup = new RoutedCommand();
+        public static RoutedCommand AddServer = new RoutedCommand();
+        public static RoutedCommand AddProtocol = new RoutedCommand();
+        public static RoutedCommand DeleteItem = new RoutedCommand();
+
         public MainWindow(IConfig config ,IProgramsProtocolsList programsProtocolsList, IUnityContainer container)
         {
             this.config = config;
@@ -29,7 +37,9 @@ namespace EasyRemote
             this.container = container;
             ProtocolPorgramsConverter.ProgramsProtocolsList = programsProtocolsList;
             InitializeComponent();
+
             TreeView.ItemsSource = config.RootGroup.Childrens;
+            AddProcessToTabControl(@"C:\Program Files (x86)\PuTTY\putty.exe", "-load \"cuda1\"");
         }
 
         private static T GetParent<T>(DependencyObject ob)
@@ -82,10 +92,36 @@ namespace EasyRemote
                     var args = program.ConnectTo(server, protocol);
                     Debug.Print("args =" + args);
                     // TODO change this
-                    Process.Start(program.GetPath(), args);
+                    AddProcessToTabControl(program.GetPath(), args);
                     // TODO open connection
                 }
             }
+        }
+
+        private void AddProcessToTabControl(string programPath, string arguments)
+        {
+            TabItem item = new TabItem();
+            var app = new AppWrapper(programPath, arguments, this);
+
+            item.Header = programPath;
+
+            //Grid newGrid = new Grid();
+
+            //ColumnDefinition col1 = new ColumnDefinition();
+            //RowDefinition row1 = new RowDefinition();
+
+
+
+            //Grid.SetColumn(app,0);
+            //Grid.SetRow(app, 0);
+
+            //newGrid.ColumnDefinitions.Add(col1);
+            //newGrid.RowDefinitions.Add(row1);
+            //newGrid.Children.Add(app);
+            item.Content = app;
+            mainTabControl.Items.Add(item);
+            mainTabControl.SelectedItem = item;
+
         }
 
         private void TreeView_OnSelectedItemChanged(object sender, RoutedPropertyChangedEventArgs<object> e)
@@ -99,8 +135,14 @@ namespace EasyRemote
 
         private void LoadProperty(object ob)
         {
-            _propertyGrid.SelectedObject = ob;
-            Debug.Print("Load ob " + ob);
+            if (ob is IProgram)
+            {
+                _propertyGrid.SelectedObject = null;
+            }
+            else
+            {
+                _propertyGrid.SelectedObject = ob;
+            }
         }
 
         private void MenuAddGroup_Click(object sender, RoutedEventArgs e)
@@ -132,6 +174,7 @@ namespace EasyRemote
         {
             var ask = container.Resolve<AskProtocol>();
             ask.Filter(server);
+            ask.ShowDialog();
             if (ask.SelectedProtocol != null)
             {
                 var serverProtocol = container.Resolve<IFactory<IServerProtocol>>().Create();
@@ -176,7 +219,6 @@ namespace EasyRemote
                 return;
             }
 
-            Debug.Print("Delete {0}", selected);
             if (selected is IServer)
             {
                 Delete(selected as IServer, config.RootGroup);

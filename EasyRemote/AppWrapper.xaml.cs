@@ -8,9 +8,9 @@ using System.Windows.Interop;
 namespace WpfAppControl
 {
     /// <summary>
-    /// AppControl.xaml 
+    /// AppWrapper.xaml 
     /// </summary>
-    public partial class AppControl : UserControl, IDisposable
+    public partial class AppWrapper : UserControl, IDisposable
     {
         [StructLayoutAttribute(LayoutKind.Sequential)]
         public struct HWND__ {
@@ -19,7 +19,7 @@ namespace WpfAppControl
             public int unused;
         }
 
-        public AppControl(String exeName, String arguments)
+        public AppWrapper(String exeName, String arguments, Control mainParent)
         {
             InitializeComponent();
             this.SizeChanged += new SizeChangedEventHandler(OnSizeChanged);
@@ -28,9 +28,10 @@ namespace WpfAppControl
 
             this.exeName = exeName;
             this.arguments = arguments;
+            this.mainParent = mainParent;
         }
 
-        ~AppControl()
+        ~AppWrapper()
         {
             this.Dispose();
         }
@@ -60,7 +61,6 @@ namespace WpfAppControl
         public string ExeName
         {
             get { return exeName; }
-            set { }
         }
 
         private string arguments = "";
@@ -68,7 +68,6 @@ namespace WpfAppControl
         public string Arguments
         {
             get { return arguments; }
-            set { }
         }
 
         private double ratio = 1.25;
@@ -77,6 +76,13 @@ namespace WpfAppControl
         {
             get { return ratio; }
             set { ratio = value; }
+        }
+
+        private Control mainParent = null;
+
+        public Control MainParent
+        {
+            get { return mainParent; }
         }
 
         [DllImport("user32.dll", EntryPoint="GetWindowThreadProcessId",  SetLastError=true,
@@ -102,6 +108,10 @@ namespace WpfAppControl
         [DllImport("user32.dll", SetLastError=true)]
         private static extern bool MoveWindow(IntPtr hwnd, int x, int y, int cx, int cy, bool repaint);
 
+        [DllImport("user32.dll", CharSet = System.Runtime.InteropServices.CharSet.Auto)]
+
+        private static extern bool ShowWindow(IntPtr hwnd, int nCmdShow); 
+
         private const int SWP_NOOWNERZORDER = 0x200;
         private const int SWP_NOREDRAW = 0x8;
         private const int SWP_NOZORDER = 0x4;
@@ -113,6 +123,7 @@ namespace WpfAppControl
         private const int SWP_NOMOVE = 0x2;
         private const int SWP_NOSIZE = 0x1;
         private const int GWL_STYLE = (-16);
+        private const int GWL_EXSTYLE = -20;
         private const int WS_VISIBLE = 0x10000000;
         private const int WS_CHILD = 0x40000000;
         private const int WS_CAPTION = 0xc00000;
@@ -120,6 +131,10 @@ namespace WpfAppControl
         private const int WS_THICKFRAME = 0x40000;
         private const int WS_MINIMIZE = 0x20000000;
         private const int WS_MAXIMIZEBOX = 0x20000;
+        private const int WS_MAXIMIZE = 0x01000000;
+        private const int WS_BORDER = 0x800000;
+        private const int WS_DLGFRAME = 0x00400000;
+        private const int WS_EX_DLGMODALFRAME = 0x00000001;
 
 
         
@@ -179,17 +194,28 @@ namespace WpfAppControl
                 // Put it into this form
                 var helper = new WindowInteropHelper(Window.GetWindow(this.AppContainer));
                 SetParent(_appWin, helper.Handle);
-
+                
                 var actualStyle = GetWindowLong(_appWin, GWL_STYLE);
 
+                Debug.Print(actualStyle+"");
+                /*
                 actualStyle = actualStyle & ~WS_CAPTION;
                 actualStyle = actualStyle & ~WS_SYSMENU;
                 actualStyle = actualStyle & ~WS_THICKFRAME;
                 actualStyle = actualStyle & ~WS_MINIMIZE;
                 actualStyle = actualStyle & ~WS_MAXIMIZEBOX;
+                actualStyle = actualStyle & ~WS_VISIBLE;*/
+                actualStyle &= ~(WS_CAPTION | WS_THICKFRAME | WS_MINIMIZE | WS_MAXIMIZE | WS_SYSMENU | WS_MAXIMIZEBOX);
+                Debug.Print(actualStyle + "");
+                
 
                 // Remove border and whatnot
-                SetWindowLongA(_appWin, GWL_STYLE, WS_VISIBLE);
+                SetWindowLongA(_appWin, GWL_STYLE, WS_VISIBLE & ~(WS_CAPTION | WS_THICKFRAME | WS_MINIMIZE | WS_MAXIMIZE | WS_SYSMENU | WS_MAXIMIZEBOX));
+                //SetWindowLongA(_appWin, GWL_STYLE, (int)actualStyle & ~(WS_BORDER | WS_DLGFRAME | WS_THICKFRAME));
+
+                var actualExStyle = GetWindowLong(_appWin, GWL_EXSTYLE);
+               // SetWindowLongA(_appWin, GWL_EXSTYLE, (int)actualExStyle & ~(~WS_EX_DLGMODALFRAME));
+
 
                 // Move the window to overlay it on this window
                 //MoveWindow(_appWin, 0, 0, (int)this.ActualWidth, (int)this.ActualHeight, true);
@@ -217,7 +243,9 @@ namespace WpfAppControl
         {
             if (this._appWin != IntPtr.Zero)
             {
-                MoveWindow(_appWin, 0, 0, (int)(this.ActualWidth * ratio), (int)(this.ActualHeight * ratio), true);
+                Point relativePoint = this.TransformToAncestor(mainParent)
+                          .Transform(new Point(0, 0));
+                MoveWindow(_appWin, (int)(relativePoint.X*ratio), (int)(relativePoint.Y*ratio), (int)(this.ActualWidth * ratio), (int)(this.ActualHeight * ratio), true);
             }
         }
 
@@ -245,5 +273,6 @@ namespace WpfAppControl
             this.Dispose(true);
             GC.SuppressFinalize(this);
         }
+
     }
 }
