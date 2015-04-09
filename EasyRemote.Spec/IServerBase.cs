@@ -10,6 +10,6 @@ namespace EasyRemote.Spec
 
     public enum ServerClassType
     {
-        Server, Group
+        Server = 0, Group = 1
     }
 }
