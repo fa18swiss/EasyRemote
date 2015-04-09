@@ -1,7 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
-using System.Windows.Forms;
 using EasyRemote.Impl.Converters.JSON;
 using EasyRemote.Spec;
 using Microsoft.Practices.ObjectBuilder2;
@@ -22,7 +21,7 @@ namespace EasyRemote.Impl
             servers.ForEach(s => Childrens.Add(s));
         }
 
-        public ServerGroup(ServerBaseHelper helper) : this()
+        public ServerGroup(IServerGroup helper) : this()
         {
             Name = helper.Name;
             Childrens = helper.Childrens;

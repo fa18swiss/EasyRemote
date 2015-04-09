@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
+using System.Collections.ObjectModel;
 using Newtonsoft.Json;
 
 namespace EasyRemote.Impl.Converters.JSON
@@ -17,7 +17,7 @@ namespace EasyRemote.Impl.Converters.JSON
         public override object ReadJson(JsonReader reader, Type objectType, object existingValue,
             JsonSerializer serializer)
         {
-            return serializer.Deserialize<IList<TClass>>(reader).ToList<TInterface>();
+            return new ObservableCollection<TInterface>(serializer.Deserialize<IList<TClass>>(reader));
         }
 
         public override void WriteJson(JsonWriter writer, object value, JsonSerializer serializer)

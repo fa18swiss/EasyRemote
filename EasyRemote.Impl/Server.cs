@@ -24,7 +24,7 @@ namespace EasyRemote.Impl
             protocols.ForEach(p => Protocols.Add(p));
         }
 
-        public Server(ServerBaseHelper helper) : this()
+        public Server(IServer helper) : this()
         {
             HostName = helper.HostName;
             DefaultUsername = helper.DefaultUsername;

@@ -55,22 +55,23 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Converters\JSON\ProgramConverter.cs" />
+    <Compile Include="Converters\JSON\ProtocolConverter.cs" />
     <Compile Include="DefaultConfig.cs" />
+    <Compile Include="JSON\ProgramJson.cs" />
+    <Compile Include="JSON\ServerBaseHelper.cs" />
     <Compile Include="ProgramsProtocolsList.cs" />
     <Compile Include="Config.cs" />
     <Compile Include="Converters\JSON\GenericConverter.cs" />
     <Compile Include="Converters\JSON\GenericListConverter.cs" />
     <Compile Include="Converters\JSON\ServerBaseConverter.cs" />
-    <Compile Include="Converters\JSON\ServerBaseHelper.cs" />
     <Compile Include="Extension\Auth.cs" />
     <Compile Include="Extension\Path.cs" />
     <Compile Include="Extension\Port.cs" />
     <Compile Include="Facory\GenericFactory.cs" />
     <Compile Include="Module\ImplModule.cs" />
-    <Compile Include="Program.cs" />
     <Compile Include="ServerGroup.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Protocol.cs" />
     <Compile Include="Server.cs" />
     <Compile Include="ServerProtocol.cs" />
   </ItemGroup>

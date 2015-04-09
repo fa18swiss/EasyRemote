@@ -11,10 +11,6 @@ namespace EasyRemote.Impl.Module
         public void Load(IUnityContainer container)
         {
             // factorys
-            container.RegisterType<IFactory<IProgram>, GenericFactory<IProgram, Program>>(
-                new ContainerControlledLifetimeManager());
-            container.RegisterType<IFactory<IProtocol>, GenericFactory<IProtocol, Protocol>>(
-                new ContainerControlledLifetimeManager());
             container.RegisterType<IFactory<IServer>, GenericFactory<IServer, Server>>(
                 new ContainerControlledLifetimeManager());
             container.RegisterType<IFactory<IServerGroup>, GenericFactory<IServerGroup, ServerGroup>>(
@@ -25,6 +21,8 @@ namespace EasyRemote.Impl.Module
             // config
             container.RegisterType<IProgramsProtocolsList, ProgramsProtocolsList>(new ContainerControlledLifetimeManager());
             container.RegisterType<IConfig, DefaultConfig>(new ContainerControlledLifetimeManager());
+
+            Converters.JSON.ProtocolConverter.ProgramsProtocolsList = container.Resolve<IProgramsProtocolsList>();
         }
     }
 }

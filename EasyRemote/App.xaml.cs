@@ -12,8 +12,8 @@ namespace EasyRemote
         protected override void OnStartup(StartupEventArgs e)
         {
             IUnityContainer container = new UnityContainer();
-            new ImplModule().Load(container);
             new ProgramsProtocols.Module().Load(container);
+            new ImplModule().Load(container);
 
             var mainWindow = container.Resolve<MainWindow>();
             mainWindow.Show();
