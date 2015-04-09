@@ -48,6 +48,7 @@
     <Compile Include="Factory\IFactory.cs" />
     <Compile Include="IConfig.cs" />
     <Compile Include="IProgram.cs" />
+    <Compile Include="IProgramsProtocolsList.cs" />
     <Compile Include="IProtocol.cs" />
     <Compile Include="IServer.cs" />
     <Compile Include="IServerBase.cs" />

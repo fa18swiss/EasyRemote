@@ -6,6 +6,8 @@ using System.Windows.Media;
 using EasyRemote.Converters;
 using EasyRemote.Impl.Extension;
 using EasyRemote.Spec;
+using EasyRemote.Spec.Factory;
+using Microsoft.Practices.Unity;
 
 
 namespace EasyRemote
@@ -16,11 +18,15 @@ namespace EasyRemote
     public partial class MainWindow : Window
     {
         private readonly IConfig config;
+        private readonly IProgramsProtocolsList programsProtocolsList;
+        private readonly IUnityContainer container;
 
-        public MainWindow(IConfig config)
+        public MainWindow(IConfig config ,IProgramsProtocolsList programsProtocolsList, IUnityContainer container)
         {
             this.config = config;
-            ProtocolPorgramsConverter.Config = config;
+            this.programsProtocolsList = programsProtocolsList;
+            this.container = container;
+            ProtocolPorgramsConverter.ProgramsProtocolsList = programsProtocolsList;
             InitializeComponent();
             string path = @"C:\zgeg.json";
             config.Save(path);
@@ -97,6 +103,32 @@ namespace EasyRemote
         {
             _propertyGrid.SelectedObject = ob;
             Debug.Print("Load ob " + ob);
+        }
+
+        private void MenuAddGroup_Click(object sender, RoutedEventArgs e)
+        {
+            Debug.Print("Selected {0}", TreeView.SelectedItem);
+            var selected = TreeView.SelectedItem;
+            if (selected == null)
+            {
+                AddNewGroup(config.RootGroup);
+            }
+            if (selected is IServerGroup)
+            {
+                AddNewGroup(selected as IServerGroup);
+            }
+        }
+
+        private void AddNewGroup(IServerGroup group)
+        {
+            var newGroup = container.Resolve<IFactory<IServerGroup>>().Create();
+            newGroup.Name = "[New]";
+            group.Childrens.Add(newGroup);
+        }
+
+        private void MenuAddServer_Click(object sender, RoutedEventArgs e)
+        {
+            throw new System.NotImplementedException();
         }
     }
 }

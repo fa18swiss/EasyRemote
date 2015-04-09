@@ -24,6 +24,8 @@
                 <MenuItem Header="_Edit">
                     <MenuItem Header="_Edit connection" />
                     <Separator />
+                    <MenuItem Header="_Add group" Click="MenuAddGroup_Click" />
+                    <MenuItem Header="_Add server" Click="MenuAddServer_Click" />
                     <MenuItem Header="_Add protocol" />
                 </MenuItem>
                 <MenuItem Header="_Tools">
