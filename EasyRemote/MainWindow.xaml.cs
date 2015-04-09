@@ -24,7 +24,7 @@ namespace EasyRemote
             InitializeComponent();
             string path = @"C:\zgeg.json";
             config.Save(path);
-            //config.Load(path);
+            config.Load(path);
             TreeView.ItemsSource = config.RootGroup.Childrens;
         }
 
