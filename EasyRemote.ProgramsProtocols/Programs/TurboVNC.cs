@@ -18,8 +18,11 @@ namespace EasyRemote.ProgramsProtocols.Programs
             var builder = new StringBuilder();
 
             builder.Append(server.HostName);
-            builder.Append("::");
-            builder.Append(protocol.GetPort());
+            if (protocol.Port.HasValue)
+            {
+                builder.Append("::");
+                builder.Append(protocol.Port.Value);
+            }
             var pwd = server.GetPasswordForProtocol(protocol);
             if (!string.IsNullOrEmpty(pwd))
             {

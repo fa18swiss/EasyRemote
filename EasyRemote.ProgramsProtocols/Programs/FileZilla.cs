@@ -42,6 +42,7 @@ namespace EasyRemote.ProgramsProtocols.Programs
                 builder.Append(':');
                 builder.Append(protocol.Port.Value);
             }
+            builder.Append("  --logontype=ask");
             return builder.ToString();
         }
     }

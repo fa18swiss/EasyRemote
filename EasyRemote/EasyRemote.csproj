@@ -107,7 +107,6 @@
     </Compile>
     <Compile Include="Converters\ProgramImageConverter.cs" />
     <Compile Include="Converters\ProtocolPorgramsConverter.cs" />
-    <Compile Include="Converters\ProtocolPortConverter.cs" />
     <Compile Include="IconsTools.cs" />
     <Compile Include="InterfaceTemplateSelector.cs" />
     <Compile Include="MainWindow.xaml.cs">
