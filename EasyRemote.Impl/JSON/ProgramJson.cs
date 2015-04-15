@@ -14,6 +14,7 @@ namespace EasyRemote.Impl.JSON
         {
             Name = program.Name;
             Path = program.Path;
+            IsActivate = program.IsActivate;
         }
 
         public IProgram ToProgram(IProgramsProtocolsList programsProtocolsList)
@@ -22,11 +23,13 @@ namespace EasyRemote.Impl.JSON
             if (program != null)
             {
                 program.Path = Path;
+                program.IsActivate = IsActivate;
             }
             return program;
         }
 
         public string Name { get; set; }
         public string Path { get; set; }
+        public bool IsActivate { get; set; }
     }
 }

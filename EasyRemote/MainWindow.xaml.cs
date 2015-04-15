@@ -39,6 +39,9 @@ namespace EasyRemote
             ProtocolPorgramsConverter.ProgramsProtocolsList = programsProtocolsList;
             InitializeComponent();
 
+            // remove
+            mainTabControl.Items.Remove(ProgramsTabItem);
+            ProgramsDataGrid.ItemsSource = programsProtocolsList.Programs;
             TreeView.ItemsSource = config.RootGroup.Childrens;
             AddProcessToTabControl(@"C:\Program Files (x86)\PuTTY\putty.exe", "-load \"cuda1\"");
         }
@@ -142,7 +145,7 @@ namespace EasyRemote
             }
         }
 
-        private void MenuAddGroup_Click(object sender, RoutedEventArgs e)
+        private void MenuAddGroup_OnClick(object sender, RoutedEventArgs e)
         {
             var selected = TreeView.SelectedItem;
             if (selected == null)
@@ -179,7 +182,7 @@ namespace EasyRemote
                 server.Protocols.Add(serverProtocol);
             }
         }
-        private void MenuAddServer_Click(object sender, RoutedEventArgs e)
+        private void MenuAddServer_OnClick(object sender, RoutedEventArgs e)
         {
             var selected = TreeView.SelectedItem;
             if (selected == null)
@@ -192,7 +195,7 @@ namespace EasyRemote
             }
         }
 
-        private void MenuAddProtocol_Click(object sender, RoutedEventArgs e)
+        private void MenuAddProtocol_OnClick(object sender, RoutedEventArgs e)
         {
             var selected = TreeView.SelectedItem;
             if (selected is IServer)
@@ -312,6 +315,52 @@ namespace EasyRemote
                 MessageBox.Show("At least one connection is required", "Error", MessageBoxButton.OK,
                     MessageBoxImage.Error);
             }
+        }
+
+        private void ProgramsDataGrid_CellEditEnding(object sender, DataGridCellEditEndingEventArgs e)
+        {
+            TreeView.Items.Refresh();
+            TreeView.UpdateLayout();
+        }
+
+        private void PathButton_OnClick(object sender, RoutedEventArgs e)
+        {
+            var button = sender as Button;
+            if (button == null)
+            {
+                return;
+            }
+            var program = button.DataContext as IProgram;
+            if (program == null)
+            {
+                return;
+            }
+            var fileDialog = new OpenFileDialog
+            {
+                Filter = "Application (*.exe)|*.exe",
+                Multiselect = false,
+                RestoreDirectory = true,
+                FileName = program.GetPath(),
+                InitialDirectory = System.IO.Path.GetDirectoryName(program.GetPath()),
+            };
+            var result = fileDialog.ShowDialog();
+            if (result.HasValue && result.Value)
+            {
+                program.Path = fileDialog.FileName;
+            }
+            ProgramsDataGrid.Items.Refresh();
+        }
+
+
+        private void EditProgramsMenuItem_OnChecked(object sender, RoutedEventArgs e)
+        {
+            mainTabControl.Items.Add(ProgramsTabItem);
+            mainTabControl.SelectedItem = ProgramsTabItem;
+        }
+
+        private void EditProgramsMenuItem_Unchecked(object sender, RoutedEventArgs e)
+        {
+            mainTabControl.Items.Remove(ProgramsTabItem);
         }
     }
 }

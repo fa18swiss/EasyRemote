@@ -14,6 +14,7 @@ namespace EasyRemote.ProgramsProtocols.Programs
         {
             this.name = name;
             this.protocols = new ReadOnlyCollection<IProtocol>(protocols);
+            IsActivate = true;
         }
         public override int GetHashCode()
         {
@@ -31,6 +32,7 @@ namespace EasyRemote.ProgramsProtocols.Programs
             set{}
         }
         public string Path { get; set; }
+        public bool IsActivate { get; set; }
 
         public IList<IProtocol> Protocols
         {

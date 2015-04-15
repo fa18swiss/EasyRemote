@@ -15,7 +15,7 @@ namespace EasyRemote.Converters
             var serverProtocol = value as IServerProtocol;
             if (serverProtocol != null)
             {
-                return ProgramsProtocolsList.Programs.Where(p => p.Protocols.Contains(serverProtocol.Protocol));
+                return ProgramsProtocolsList.Programs.Where(p => p.Protocols.Contains(serverProtocol.Protocol) && p.IsActivate);
             }
             return null;
         }

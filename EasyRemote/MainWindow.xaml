@@ -15,9 +15,9 @@
         <KeyBinding Key="D" Modifiers="Control" Command="{x:Static self:MainWindow.DeleteItem}"/>
     </Window.InputBindings>
     <Window.CommandBindings>
-        <CommandBinding Command="{x:Static self:MainWindow.AddGroup}" Executed="MenuAddGroup_Click" />
-        <CommandBinding Command="{x:Static self:MainWindow.AddServer}" Executed="MenuAddServer_Click" />
-        <CommandBinding Command="{x:Static self:MainWindow.AddProtocol}" Executed="MenuAddProtocol_Click" />
+        <CommandBinding Command="{x:Static self:MainWindow.AddGroup}" Executed="MenuAddGroup_OnClick" />
+        <CommandBinding Command="{x:Static self:MainWindow.AddServer}" Executed="MenuAddServer_OnClick" />
+        <CommandBinding Command="{x:Static self:MainWindow.AddProtocol}" Executed="MenuAddProtocol_OnClick" />
         <CommandBinding Command="{x:Static self:MainWindow.DeleteItem}" Executed="MenuDeleteItem_OnClick" />
     </Window.CommandBindings>
     <Grid>
@@ -37,15 +37,14 @@
                 <MenuItem Header="_Edit">
                     <MenuItem Header="_Edit connection" />
                     <Separator />
-                    <MenuItem Header="_Add group" Click="MenuAddGroup_Click" InputGestureText="Ctrl+1" />
-                    <MenuItem Header="_Add server" Click="MenuAddServer_Click" InputGestureText="Ctrl+2" />
-                    <MenuItem Header="_Add protocol" Click="MenuAddProtocol_Click" InputGestureText="Ctrl+3" />
+                    <MenuItem Header="_Add group" Click="MenuAddGroup_OnClick" InputGestureText="Ctrl+1" />
+                    <MenuItem Header="_Add server" Click="MenuAddServer_OnClick" InputGestureText="Ctrl+2" />
+                    <MenuItem Header="_Add protocol" Click="MenuAddProtocol_OnClick" InputGestureText="Ctrl+3" />
                     <Separator />
                     <MenuItem Header="_Delete item"  Click="MenuDeleteItem_OnClick" InputGestureText="Ctrl+D" />
                 </MenuItem>
                 <MenuItem Header="_Tools">
-                    <MenuItem Header="_Check connection" />
-                    <MenuItem Header="_Rofl" />
+                    <MenuItem Header="_Edit programs" Name="EditProgramsMenuItem" IsCheckable="True" IsChecked="False"   Checked="EditProgramsMenuItem_OnChecked" Unchecked="EditProgramsMenuItem_Unchecked" />
                 </MenuItem>
                 <MenuItem Header="_About">
                     <MenuItem Header="_About EasyRemote" />
@@ -61,11 +60,21 @@
                 </Grid.ColumnDefinitions>
                 <Grid Column="2">
                     <TabControl TabStripPlacement="Top" Margin="0, 0, 0, 0" Name="mainTabControl">
-                        <TabItem Name="con1" Header="Connection Name 1" />
-                        <TabItem Name ="TestTabItem" Header="TestHeader">
-                            <Grid Name="TestGrid">
-                                
-                            </Grid>
+                        <TabItem Name ="ProgramsTabItem" Header="TestHeader">
+                            <DataGrid Name="ProgramsDataGrid" AutoGenerateColumns="False" CellEditEnding="ProgramsDataGrid_CellEditEnding" >
+                                <DataGrid.Columns>
+                                    <DataGridTextColumn IsReadOnly="True" Header="Name" Binding="{Binding Name}" />
+                                    <DataGridTextColumn Header="Path" Binding="{Binding Path, UpdateSourceTrigger=PropertyChanged}" />
+                                    <DataGridTemplateColumn Header="...">
+                                        <DataGridTemplateColumn.CellTemplate>
+                                            <DataTemplate>
+                                                <Button Content="..." DataContext="{Binding}" Click="PathButton_OnClick" />
+                                            </DataTemplate>
+                                        </DataGridTemplateColumn.CellTemplate>
+                                    </DataGridTemplateColumn>
+                                    <DataGridCheckBoxColumn Header="Activated" Binding="{Binding IsActivate}" />
+                                </DataGrid.Columns>
+                            </DataGrid>
                         </TabItem>
                     </TabControl>
                 </Grid>
@@ -131,14 +140,11 @@
                         </Grid>
                         <GridSplitter Grid.Row="1" Height="5" HorizontalAlignment="Stretch" />
                         <Grid Grid.Row="2">
-                            
-                            <Grid Name="PropertyGridGrid">
-                                <!-- if for some reason we have to add a row here is a grid -->
-                                <xctk:PropertyGrid x:Name="_propertyGrid"
-                                     AutoGenerateProperties="True">
+                            <!-- if for some reason we have to add a row here is a grid -->
+                            <xctk:PropertyGrid x:Name="_propertyGrid"
+                                    AutoGenerateProperties="True">
                                     
-                                </xctk:PropertyGrid>
-                            </Grid>
+                            </xctk:PropertyGrid>
                         </Grid>
                     </Grid>
                 </Grid>
