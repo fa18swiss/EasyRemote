@@ -3,6 +3,7 @@ using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Reflection;
+using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
@@ -60,7 +61,7 @@ namespace EasyRemote
             mainTabControl.Items.Remove(ProgramsTabItem);
             ProgramsDataGrid.ItemsSource = programsProtocolsList.Programs;
             TreeView.ItemsSource = config.RootGroup.Childrens;
-            AddProcessToTabControl(@"C:\Program Files (x86)\PuTTY\putty.exe", "-load \"cuda1\"");
+            AddProcessToTabControl(@"C:\Program Files (x86)\PuTTY\putty.exe", "-load \"cuda1\"", "start");
         }
         private void OpenFile(params string[] paths)
         {
@@ -78,7 +79,14 @@ namespace EasyRemote
             {
                 Action action = () =>
                     mainTabControl.Items.Remove(item);
-                Dispatcher.Invoke(action);
+                try
+                {
+                    Dispatcher.Invoke(action);
+                }
+                catch (TaskCanceledException)
+                {
+                    // nothing to do
+                }
             }
         }
 
@@ -132,18 +140,18 @@ namespace EasyRemote
                     var args = program.ConnectTo(server, protocol);
                     Debug.Print("args =" + args);
                     // TODO change this
-                    AddProcessToTabControl(program.GetPath(), args);
+                    AddProcessToTabControl(program.GetPath(), args, string.Format("{0} - {1}", server.Name, protocol.Protocol.Name));
                     // TODO open connection
                 }
             }
         }
 
-        private void AddProcessToTabControl(string programPath, string arguments)
+        private void AddProcessToTabControl(string programPath, string arguments, string name)
         {
             var item = new TabItem();
             var app = new AppWrapper(programPath, arguments, this, item);
 
-            item.Header = programPath;
+            item.Header = name;
 
             item.Content = app;
             mainTabControl.Items.Add(item);
