@@ -1,5 +1,7 @@
 using System;
 using System.Diagnostics;
+using System.IO;
+using System.Linq;
 using System.Reflection;
 using System.Windows;
 using System.Windows.Controls;
@@ -10,6 +12,7 @@ using EasyRemote.Impl.Extension;
 using EasyRemote.ProgramsProtocols.Programs;
 using EasyRemote.Spec;
 using EasyRemote.Spec.Factory;
+using EasyRemote.Spec.Settings;
 using Microsoft.Practices.Unity;
 using Microsoft.Win32;
 using WpfAppControl;
@@ -25,25 +28,48 @@ namespace EasyRemote
         private readonly IConfig config;
         private readonly IProgramsProtocolsList programsProtocolsList;
         private readonly IUnityContainer container;
+        private readonly IUserSettings userSettings;
+
 
         public static RoutedCommand AddGroup = new RoutedCommand();
         public static RoutedCommand AddServer = new RoutedCommand();
         public static RoutedCommand AddProtocol = new RoutedCommand();
         public static RoutedCommand DeleteItem = new RoutedCommand();
-
-        public MainWindow(IConfig config ,IProgramsProtocolsList programsProtocolsList, IUnityContainer container)
+        public MainWindow(IConfig config ,IProgramsProtocolsList programsProtocolsList, IUnityContainer container, IUserSettings userSettings)
         {
             this.config = config;
             this.programsProtocolsList = programsProtocolsList;
             this.container = container;
+            this.userSettings = userSettings;
             ProtocolPorgramsConverter.ProgramsProtocolsList = programsProtocolsList;
             InitializeComponent();
+
+
+            var args = Environment.GetCommandLineArgs();
+            if (args.Length > 1)
+            {
+                OpenFile(args[1], userSettings.LastPath);
+            }
+            else
+            {
+                OpenFile(userSettings.LastPath);
+            }
+
 
             // remove
             mainTabControl.Items.Remove(ProgramsTabItem);
             ProgramsDataGrid.ItemsSource = programsProtocolsList.Programs;
             TreeView.ItemsSource = config.RootGroup.Childrens;
             AddProcessToTabControl(@"C:\Program Files (x86)\PuTTY\putty.exe", "-load \"cuda1\"");
+        }
+        private void OpenFile(params string[] paths)
+        {
+            foreach (var path in paths.Where(File.Exists))
+            {
+                config.Load(path);
+                userSettings.LastPath = path;
+                return;
+            }
         }
 
         public void RemoveTabItem(TabItem item)
@@ -114,7 +140,7 @@ namespace EasyRemote
 
         private void AddProcessToTabControl(string programPath, string arguments)
         {
-            TabItem item = new TabItem();
+            var item = new TabItem();
             var app = new AppWrapper(programPath, arguments, this, item);
 
             item.Header = programPath;
@@ -308,6 +334,7 @@ namespace EasyRemote
                 if (result.HasValue && result.Value)
                 {
                     config.Save(fileDialog.FileName);
+                    userSettings.LastPath = fileDialog.FileName;
                 }
             }
             else

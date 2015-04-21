@@ -1,7 +1,9 @@
 ﻿using EasyRemote.Impl.Facory;
+using EasyRemote.Impl.Settings;
 using EasyRemote.Spec;
 using EasyRemote.Spec.Factory;
 using EasyRemote.Spec.Module;
+using EasyRemote.Spec.Settings;
 using Microsoft.Practices.Unity;
 
 namespace EasyRemote.Impl.Module
@@ -19,10 +21,14 @@ namespace EasyRemote.Impl.Module
                 new ContainerControlledLifetimeManager());
 
             // config
-            container.RegisterType<IProgramsProtocolsList, ProgramsProtocolsList>(new ContainerControlledLifetimeManager());
+            container.RegisterType<IProgramsProtocolsList, ProgramsProtocolsList>(
+                new ContainerControlledLifetimeManager());
             container.RegisterType<IConfig, DefaultConfig>(new ContainerControlledLifetimeManager());
+            container.RegisterType<IUserSettings, UserSettings>();
 
-            Converters.JSON.ProtocolConverter.ProgramsProtocolsList = container.Resolve<IProgramsProtocolsList>();
+            var programsProtocolsList = container.Resolve<IProgramsProtocolsList>();
+            Converters.JSON.ProtocolConverter.ProgramsProtocolsList = programsProtocolsList;
+            Converters.JSON.ProgramConverter.ProgramsProtocolsList = programsProtocolsList;
         }
     }
 }

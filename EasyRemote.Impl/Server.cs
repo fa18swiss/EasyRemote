@@ -26,6 +26,7 @@ namespace EasyRemote.Impl
 
         public Server(IServer helper) : this()
         {
+            Name = helper.Name;
             HostName = helper.HostName;
             DefaultUsername = helper.DefaultUsername;
             DefaultPassword = helper.DefaultPassword;
