@@ -58,6 +58,7 @@
     <Compile Include="Converters\JSON\ProgramConverter.cs" />
     <Compile Include="Converters\JSON\ProtocolConverter.cs" />
     <Compile Include="DefaultConfig.cs" />
+    <Compile Include="Facory\FactoryRegistration.cs" />
     <Compile Include="JSON\ProgramJson.cs" />
     <Compile Include="JSON\ServerBaseHelper.cs" />
     <Compile Include="ProgramsProtocolsList.cs" />
