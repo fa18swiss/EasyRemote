@@ -6,6 +6,9 @@ using EasyRemote.Spec;
 
 namespace EasyRemote.Converters
 {
+    /// <summary>
+    /// Converter that list programs for protocol
+    /// </summary>
     public class ProtocolPorgramsConverter : IValueConverter
     {
         // TODO change, this is bad !

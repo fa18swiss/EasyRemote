@@ -7,6 +7,9 @@ using EasyRemote.Spec;
 
 namespace EasyRemote.Converters
 {
+    /// <summary>
+    /// Converter that return icon of program, of default icone
+    /// </summary>
     public class ProgramImageConverter : IValueConverter
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
