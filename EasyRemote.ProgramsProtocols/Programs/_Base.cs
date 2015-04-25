@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Linq;
 using EasyRemote.Spec;
 
 namespace EasyRemote.ProgramsProtocols.Programs
@@ -9,7 +8,7 @@ namespace EasyRemote.ProgramsProtocols.Programs
     internal abstract class _Base : IProgram
     {
         private readonly string name;
-        private readonly IList<IProtocol> protocols; 
+        private readonly ICollection<IProtocol> protocols; 
         protected _Base(string name, params IProtocol[] protocols)
         {
             this.name = name;
@@ -34,7 +33,7 @@ namespace EasyRemote.ProgramsProtocols.Programs
         public string Path { get; set; }
         public bool IsActivate { get; set; }
 
-        public IList<IProtocol> Protocols
+        public ICollection<IProtocol> Protocols
         {
             get { return protocols; }
         }
