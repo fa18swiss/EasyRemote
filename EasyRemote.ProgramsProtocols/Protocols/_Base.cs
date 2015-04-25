@@ -3,16 +3,19 @@ using EasyRemote.Spec;
 
 namespace EasyRemote.ProgramsProtocols.Protocols
 {
+    /// <summary>
+    /// Default implementaiton for protool
+    /// </summary>
     internal abstract class _Base : IProtocol
     {
         private readonly string name;
-        private readonly int defaultPort;
 
         protected _Base(String name, int defaultPort)
         {
             this.name = name;
-            this.defaultPort = defaultPort;
+            DefaultPort = defaultPort;
         }
+
         public override int GetHashCode()
         {
             return Name.GetHashCode();
@@ -24,14 +27,11 @@ namespace EasyRemote.ProgramsProtocols.Protocols
             return other != null && String.Equals(Name, other.Name);
         }
 
-        public string Name { 
-            get { return name; }
-            set {} 
-        }
-        public int DefaultPort
+        public string Name
         {
-            get { return defaultPort; }
-            set { }
+            get { return name; }
         }
+
+        public int DefaultPort { get; set; }
     }
 }

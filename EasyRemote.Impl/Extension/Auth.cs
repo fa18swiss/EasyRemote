@@ -1,15 +1,15 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Runtime.CompilerServices;
-using System.Text;
-using System.Threading.Tasks;
-using EasyRemote.Spec;
+﻿using EasyRemote.Spec;
 
 namespace EasyRemote.Impl.Extension
 {
     public static class Auth
     {
+        /// <summary>
+        /// GetUsernameForProtocol
+        /// </summary>
+        /// <param name="server">Server</param>
+        /// <param name="protocol">Protocol</param>
+        /// <returns>Username</returns>
         public static string GetUsernameForProtocol(this IServer server, IServerProtocol protocol)
         {
             if (!string.IsNullOrEmpty(protocol.Username))
@@ -22,6 +22,12 @@ namespace EasyRemote.Impl.Extension
             }
             return null;
         }
+        /// <summary>
+        /// GetPasswordForProtocol
+        /// </summary>
+        /// <param name="server">Server</param>
+        /// <param name="protocol">Protocol</param>
+        /// <returns>Password</returns>
         public static string GetPasswordForProtocol(this IServer server, IServerProtocol protocol)
         {
             if (!string.IsNullOrEmpty(protocol.Password))

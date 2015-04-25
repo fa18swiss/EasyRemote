@@ -3,12 +3,11 @@ using EasyRemote.Spec;
 
 namespace EasyRemote.ProgramsProtocols.Programs
 {
-    class RDP : _Base
+    internal class RDP : _Base
     {
         public RDP(Protocols.RDP rdp)
             : base("RDP", rdp)
         {
-            
         }
 
         public override string ConnectTo(IServer server, IServerProtocol protocol)

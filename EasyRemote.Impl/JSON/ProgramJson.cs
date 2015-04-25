@@ -3,6 +3,9 @@ using EasyRemote.Spec;
 
 namespace EasyRemote.Impl.JSON
 {
+    /// <summary>
+    /// Calss for json serialisation of programs
+    /// </summary>
     internal class ProgramJson
     {
         public ProgramJson()

@@ -1,11 +1,10 @@
 ﻿namespace EasyRemote.ProgramsProtocols.Protocols
 {
-    class FTP : _Base
+    internal class FTP : _Base
     {
-        public FTP() 
+        public FTP()
             : base("FTP", 20)
         {
-            
         }
     }
 }

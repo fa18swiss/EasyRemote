@@ -1,11 +1,10 @@
 ﻿namespace EasyRemote.ProgramsProtocols.Protocols
 {
-    class RDP : _Base
+    internal class RDP : _Base
     {
-        public RDP() 
+        public RDP()
             : base("RDP", 3389)
         {
-            
         }
     }
 }

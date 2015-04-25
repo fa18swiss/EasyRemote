@@ -1,15 +1,13 @@
-﻿using System;
-using System.Text;
+﻿using System.Text;
 using EasyRemote.Spec;
 
 namespace EasyRemote.ProgramsProtocols.Programs
 {
-    class Telnet : _Base
+    internal class Telnet : _Base
     {
         public Telnet(Protocols.Telnet telnet)
             : base("Telnet", telnet)
         {
-            
         }
 
         public override string ConnectTo(IServer server, IServerProtocol protocol)

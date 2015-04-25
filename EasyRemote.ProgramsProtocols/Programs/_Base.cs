@@ -5,16 +5,21 @@ using EasyRemote.Spec;
 
 namespace EasyRemote.ProgramsProtocols.Programs
 {
+    /// <summary>
+    /// Abstract class with standard iplementation
+    /// </summary>
     internal abstract class _Base : IProgram
     {
         private readonly string name;
-        private readonly ICollection<IProtocol> protocols; 
+        private readonly ICollection<IProtocol> protocols;
+
         protected _Base(string name, params IProtocol[] protocols)
         {
             this.name = name;
             this.protocols = new ReadOnlyCollection<IProtocol>(protocols);
             IsActivate = true;
         }
+
         public override int GetHashCode()
         {
             return Name.GetHashCode();
@@ -26,10 +31,11 @@ namespace EasyRemote.ProgramsProtocols.Programs
             return other != null && String.Equals(Name, other.Name);
         }
 
-        public string Name {
+        public string Name
+        {
             get { return name; }
-            set{}
         }
+
         public string Path { get; set; }
         public bool IsActivate { get; set; }
 
@@ -37,6 +43,7 @@ namespace EasyRemote.ProgramsProtocols.Programs
         {
             get { return protocols; }
         }
+
         public abstract string ConnectTo(IServer server, IServerProtocol protocol);
     }
 }

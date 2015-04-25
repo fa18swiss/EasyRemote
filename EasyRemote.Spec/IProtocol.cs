@@ -5,6 +5,6 @@
     /// </summary>
     public interface IProtocol
     {
-        string Name { get; set; }
+        string Name { get; }
     }
 }

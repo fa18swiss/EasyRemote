@@ -4,9 +4,12 @@ using EasyRemote.Spec;
 
 namespace EasyRemote.ProgramsProtocols.Programs
 {
+    /// <summary>
+    /// Default implementation for browsers
+    /// </summary>
     internal abstract class _HttpClient : _Base
     {
-        public _HttpClient(string name, HTTP http, HTTPS https) : base(name, http, https)
+        protected _HttpClient(string name, HTTP http, HTTPS https) : base(name, http, https)
         {
         }
 
@@ -23,7 +26,7 @@ namespace EasyRemote.ProgramsProtocols.Programs
                 builder.Append(protocol.Port.Value);
             }
             builder.Append('/');
-            
+
             return builder.ToString();
         }
     }

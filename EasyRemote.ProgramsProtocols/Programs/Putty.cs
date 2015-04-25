@@ -1,9 +1,7 @@
-﻿using System.Diagnostics;
-using System.Text;
+﻿using System.Text;
 using EasyRemote.Impl.Extension;
 using EasyRemote.ProgramsProtocols.Protocols;
 using EasyRemote.Spec;
-using Microsoft.Win32;
 
 namespace EasyRemote.ProgramsProtocols.Programs
 {

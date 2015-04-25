@@ -10,7 +10,7 @@ namespace EasyRemote.Spec
         /// <summary>
         /// Name
         /// </summary>
-        string Name { get; set; }
+        string Name { get; }
         /// <summary>
         /// Path
         /// </summary>

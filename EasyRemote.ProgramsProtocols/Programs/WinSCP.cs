@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Text;
 using EasyRemote.Impl.Extension;
 using EasyRemote.ProgramsProtocols.Protocols;
@@ -7,9 +6,10 @@ using EasyRemote.Spec;
 
 namespace EasyRemote.ProgramsProtocols.Programs
 {
-    class WinSCP : _Base
+    internal class WinSCP : _Base
     {
         private readonly IDictionary<IProtocol, string> protocolsDictionnary;
+
         public WinSCP(SSH ssh, FTP ftp, FTPS ftps)
             : base("WinSCP", ssh, ftp, ftps)
         {

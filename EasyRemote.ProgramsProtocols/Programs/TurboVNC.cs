@@ -1,16 +1,15 @@
 ﻿using System.Text;
+using EasyRemote.Impl.Extension;
 using EasyRemote.ProgramsProtocols.Protocols;
 using EasyRemote.Spec;
-using EasyRemote.Impl.Extension;
 
 namespace EasyRemote.ProgramsProtocols.Programs
 {
-    class TurboVNC : _Base
+    internal class TurboVNC : _Base
     {
         public TurboVNC(VNC vnc)
             : base("TurboVNC", vnc)
         {
-            
         }
 
         public override string ConnectTo(IServer server, IServerProtocol protocol)
