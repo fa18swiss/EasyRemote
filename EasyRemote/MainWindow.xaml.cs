@@ -2,7 +2,6 @@ using System;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
-using System.Reflection;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -10,7 +9,6 @@ using System.Windows.Input;
 using System.Windows.Media;
 using EasyRemote.Converters;
 using EasyRemote.Impl.Extension;
-using EasyRemote.ProgramsProtocols.Programs;
 using EasyRemote.Spec;
 using EasyRemote.Spec.Factory;
 using EasyRemote.Spec.Settings;
@@ -61,7 +59,7 @@ namespace EasyRemote
             mainTabControl.Items.Remove(ProgramsTabItem);
             ProgramsDataGrid.ItemsSource = programsProtocolsList.Programs;
             TreeView.ItemsSource = config.RootGroup.Childrens;
-            AddProcessToTabControl(@"C:\Program Files (x86)\PuTTY\putty.exe", "-load \"cuda1\"", "start");
+            //AddProcessToTabControl(@"C:\Program Files (x86)\PuTTY\putty.exe", "-load \"cuda1\"", "start");
         }
         private void OpenFile(params string[] paths)
         {

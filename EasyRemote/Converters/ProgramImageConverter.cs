@@ -4,6 +4,7 @@ using System.Windows.Data;
 using System.Windows.Media.Imaging;
 using EasyRemote.Impl.Extension;
 using EasyRemote.Spec;
+using EasyRemote.Tools;
 
 namespace EasyRemote.Converters
 {
