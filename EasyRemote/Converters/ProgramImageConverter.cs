@@ -9,7 +9,7 @@ using EasyRemote.Tools;
 namespace EasyRemote.Converters
 {
     /// <summary>
-    /// Converter that return icon of program, of default icone
+    /// Converter that return icon of program, of default icon
     /// </summary>
     public class ProgramImageConverter : IValueConverter
     {

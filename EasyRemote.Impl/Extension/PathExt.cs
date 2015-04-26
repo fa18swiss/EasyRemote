@@ -4,7 +4,7 @@ using EasyRemote.Spec;
 
 namespace EasyRemote.Impl.Extension
 {
-    public static class Path
+    public static class PathExt
     {
         /// <summary>
         /// Get path for program

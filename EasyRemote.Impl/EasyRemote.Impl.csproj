@@ -58,6 +58,7 @@
     <Compile Include="Converters\JSON\ProgramConverter.cs" />
     <Compile Include="Converters\JSON\ProtocolConverter.cs" />
     <Compile Include="DefaultConfig.cs" />
+    <Compile Include="Extension\PathExt.cs" />
     <Compile Include="Facory\FactoryRegistration.cs" />
     <Compile Include="JSON\ProgramJson.cs" />
     <Compile Include="JSON\ServerBaseHelper.cs" />
@@ -67,7 +68,6 @@
     <Compile Include="Converters\JSON\GenericListConverter.cs" />
     <Compile Include="Converters\JSON\ServerBaseConverter.cs" />
     <Compile Include="Extension\Auth.cs" />
-    <Compile Include="Extension\Path.cs" />
     <Compile Include="Facory\GenericFactory.cs" />
     <Compile Include="Module\ImplModule.cs" />
     <Compile Include="ServerGroup.cs" />
