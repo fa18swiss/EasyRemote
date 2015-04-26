@@ -57,7 +57,6 @@
   <ItemGroup>
     <Compile Include="Converters\JSON\ProgramConverter.cs" />
     <Compile Include="Converters\JSON\ProtocolConverter.cs" />
-    <Compile Include="DefaultConfig.cs" />
     <Compile Include="Extension\PathExt.cs" />
     <Compile Include="Facory\FactoryRegistration.cs" />
     <Compile Include="JSON\ProgramJson.cs" />

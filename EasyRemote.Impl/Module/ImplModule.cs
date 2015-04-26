@@ -19,7 +19,7 @@ namespace EasyRemote.Impl.Module
             // config
             container.RegisterType<IProgramsProtocolsList, ProgramsProtocolsList>(
                 new ContainerControlledLifetimeManager());
-            container.RegisterType<IConfig, DefaultConfig>(new ContainerControlledLifetimeManager());
+            container.RegisterType<IConfig, Config>(new ContainerControlledLifetimeManager());
             container.RegisterType<IUserSettings, UserSettings>();
 
             var programsProtocolsList = container.Resolve<IProgramsProtocolsList>();
