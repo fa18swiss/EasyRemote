@@ -303,6 +303,16 @@ namespace EasyRemote
                 Delete(selected as IServerGroup, config.RootGroup);
             }
         }
+        private void MenuQuit_OnClick(object sender, RoutedEventArgs e)
+        {
+            this.AskSaveBefore(() => SaveConnection_OnClick(sender, e), Close);
+        }
+
+        private void MenuNew_OnClick(object sender, RoutedEventArgs e)
+        {
+            this.AskSaveBefore(() => SaveConnection_OnClick(sender, e), () => config.RootGroup.Childrens.Clear());
+        }
+
 
         #endregion
 
@@ -461,5 +471,6 @@ namespace EasyRemote
         }
 
         #endregion
+
     }
 }

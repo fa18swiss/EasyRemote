@@ -13,12 +13,20 @@
         <KeyBinding Key="D2" Modifiers="Control" Command="{x:Static self:MainWindow.AddServer}"/>
         <KeyBinding Key="D3" Modifiers="Control" Command="{x:Static self:MainWindow.AddProtocol}"/>
         <KeyBinding Key="D" Modifiers="Control" Command="{x:Static self:MainWindow.DeleteItem}"/>
+        <KeyBinding Key="N" Modifiers="Control" Command="New" />
+        <KeyBinding Key="O" Modifiers="Control" Command="Open" />
+        <KeyBinding Key="S" Modifiers="Control" Command="SaveAs" />
+        <KeyBinding Key="Q" Modifiers="Control" Command="Close" />
     </Window.InputBindings>
     <Window.CommandBindings>
         <CommandBinding Command="{x:Static self:MainWindow.AddGroup}" Executed="MenuAddGroup_OnClick" />
         <CommandBinding Command="{x:Static self:MainWindow.AddServer}" Executed="MenuAddServer_OnClick" />
         <CommandBinding Command="{x:Static self:MainWindow.AddProtocol}" Executed="MenuAddProtocol_OnClick" />
         <CommandBinding Command="{x:Static self:MainWindow.DeleteItem}" Executed="MenuDeleteItem_OnClick" />
+        <CommandBinding Command="New" Executed="MenuNew_OnClick" />
+        <CommandBinding Command="Open" Executed="OpenConnectionFromFile_OnClick" />
+        <CommandBinding Command="SaveAs" Executed="SaveConnection_OnClick" />
+        <CommandBinding Command="Close" Executed="MenuQuit_OnClick" />
     </Window.CommandBindings>
     <Grid>
         <Grid.RowDefinitions>
@@ -28,11 +36,11 @@
         <Grid Grid.Row="0">
             <Menu>
                 <MenuItem Header="_File">
-                    <MenuItem Header="_New conection..." />
-                    <MenuItem Header="_Open connection from file..." Click="OpenConnectionFromFile_OnClick" />
-                    <MenuItem Header="_Save connection" Click="SaveConnection_OnClick" />
+                    <MenuItem Header="_New conection..." Click="MenuNew_OnClick" InputGestureText="Ctrl+N" />
+                    <MenuItem Header="_Open connection from file..." Click="OpenConnectionFromFile_OnClick" InputGestureText="Ctrl+O" />
+                    <MenuItem Header="_Save connection" Click="SaveConnection_OnClick" InputGestureText="Ctrl+S" />
                     <Separator />
-                    <MenuItem Header="_Exit" />
+                    <MenuItem Header="_Exit" Click="MenuQuit_OnClick" InputGestureText="Ctrl+Q" />
                 </MenuItem>
                 <MenuItem Header="_Edit">
                     <MenuItem Header="_Edit connection" />
