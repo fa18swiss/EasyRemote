@@ -5,7 +5,13 @@ using Newtonsoft.Json;
 
 namespace EasyRemote.Impl.JSON
 {
-    public class ServerBaseHelper : IServer, IServerGroup
+
+    /// <summary>
+    /// As the serialized configuration list contains objects of different types (implement IServer or IServerGroup)
+    /// we use this class for the deserialization. First we deserialize objects in a container that implements both interfaces
+    /// and then we determine the real type and create the final object (IServer or IServerGroup) using copy constructors.
+    /// </summary>
+    public class ServerBaseHelper : IServer, IServerGroup //implements both interface
     {
         public string Name { get; set; }
         public ServerClassType Type { get;  set; }
