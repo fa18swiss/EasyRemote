@@ -14,6 +14,7 @@ namespace EasyRemote.Impl
         public Config()
         {
             Programs = new List<IProgram>();
+            RootGroup = new ServerGroup();
         }
 
         [JsonConverter(typeof(ProgramConverter))]
