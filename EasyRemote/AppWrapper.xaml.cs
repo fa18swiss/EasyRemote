@@ -20,11 +20,18 @@ namespace WpfAppControl
             public int unused;
         }
 
+        /// <summary>
+        /// creates a new AppWrapper
+        /// </summary>
+        /// <param name="exeName">path to the executable to wrap</param>
+        /// <param name="arguments">command lind arguments to pass to the executable</param>
+        /// <param name="mainParent">parent</param>
+        /// <param name="parentTabItem">tab item that contains the application</param>
         public AppWrapper(String exeName, String arguments, MainWindow mainParent, TabItem parentTabItem)
         {
             InitializeComponent();
             this.SizeChanged += new SizeChangedEventHandler(OnSizeChanged);
-            this.Loaded += new RoutedEventHandler(OnLoaded);//new RoutedEventHandler(OnVisibleChanged);
+            this.Loaded += new RoutedEventHandler(OnLoaded);
             this.SizeChanged += new SizeChangedEventHandler(OnResize);
 
             this.exeName = exeName;
@@ -37,6 +44,11 @@ namespace WpfAppControl
         {
             this.Dispose();
         }
+
+        /// <summary>
+        /// everything is magic, and this ratio is everything
+        /// </summary>
+        private const double MAGIC_RATIO = 1.25;
 
         /// <summary>
         /// Track if the application has been created
@@ -53,6 +65,9 @@ namespace WpfAppControl
         /// </summary>
         IntPtr _appWin;
 
+        /// <summary>
+        /// child process
+        /// </summary>
         private Process _childp;
 
         /// <summary>
@@ -60,36 +75,29 @@ namespace WpfAppControl
         /// </summary>
         private string exeName = "";
 
+        /// <summary>
+        /// The name of the exe to launch
+        /// </summary>
         public string ExeName
         {
             get { return exeName; }
         }
 
+        /// <summary>
+        /// the arguments to pass to the application
+        /// </summary>
         private string arguments = "";
 
+        /// <summary>
+        /// the arguments to pass to the application
+        /// </summary>
         public string Arguments
         {
             get { return arguments; }
         }
 
-        private double ratio = 1.25;
-
-        public double Ratio
-        {
-            get { return ratio; }
-            set { ratio = value; }
-        }
-
         private MainWindow mainParent = null;
         private TabItem parentTabItem = null;
-
-        [DllImport("user32.dll", EntryPoint="GetWindowThreadProcessId",  SetLastError=true,
-             CharSet=CharSet.Unicode, ExactSpelling=true,
-             CallingConvention=CallingConvention.StdCall)]
-        private static extern long GetWindowThreadProcessId(long hWnd, long lpdwProcessId); 
-            
-        [DllImport("user32.dll", SetLastError=true)]
-        private static extern IntPtr FindWindow (string lpClassName, string lpWindowName);
 
         [DllImport("user32.dll", SetLastError=true)]
         private static extern long SetParent (IntPtr hWndChild, IntPtr hWndNewParent);
@@ -99,38 +107,19 @@ namespace WpfAppControl
 
         [DllImport("user32.dll", EntryPoint="SetWindowLongA", SetLastError=true)]
         public static extern int SetWindowLongA([System.Runtime.InteropServices.InAttribute()] System.IntPtr hWnd, int nIndex, int dwNewLong);
-
-        [DllImport("user32.dll", SetLastError=true)]
-        private static extern long SetWindowPos(IntPtr hwnd, long hWndInsertAfter, long x, long y, long cx, long cy, long wFlags);
         
         [DllImport("user32.dll", SetLastError=true)]
         private static extern bool MoveWindow(IntPtr hwnd, int x, int y, int cx, int cy, bool repaint);
 
-        private const int SWP_NOOWNERZORDER = 0x200;
-        private const int SWP_NOREDRAW = 0x8;
-        private const int SWP_NOZORDER = 0x4;
-        private const int SWP_SHOWWINDOW = 0x0040;
-        private const int WS_EX_MDICHILD = 0x40;
-        private const int SWP_FRAMECHANGED = 0x20;
-        private const int SWP_NOACTIVATE = 0x10;
-        private const int SWP_ASYNCWINDOWPOS = 0x4000;
-        private const int SWP_NOMOVE = 0x2;
-        private const int SWP_NOSIZE = 0x1;
+
         private const int GWL_STYLE = (-16);
         private const int GWL_EXSTYLE = -20;
-        private const int WS_VISIBLE = 0x10000000;
-        private const int WS_CHILD = 0x40000000;
         private const int WS_CAPTION = 0xc00000;
         private const int WS_SYSMENU = 0x80000;
         private const int WS_THICKFRAME = 0x40000;
         private const int WS_MINIMIZE = 0x20000000;
         private const int WS_MAXIMIZEBOX = 0x20000;
-        private const int WS_MAXIMIZE = 0x01000000;
-        private const int WS_BORDER = 0x800000;
-        private const int WS_DLGFRAME = 0x00400000;
         private const int WS_EX_DLGMODALFRAME = 0x00000001;
-        private const int WS_MINIMIZEBOX      = 0x00020000;
-        private const int WS_OVERLAPPED       = 0x00000000;
 
         
         /// <summary>
@@ -152,18 +141,21 @@ namespace WpfAppControl
            
         }
 
+        /// <summary>
+        /// when the form is fully loaded, this function is called and the application is created
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="routedEventArgs"></param>
         protected void OnLoaded(object sender, RoutedEventArgs routedEventArgs)
         {
             // If control needs to be initialized/created
             if (_iscreated == false)
             {
-
-                // Mark that control is created
+                // Mark that control as created
                 _iscreated = true;
 
                 // Initialize handle value to invalid
                 _appWin = IntPtr.Zero;
-
                 try
                 {
                     var procInfo = new ProcessStartInfo(this.exeName, this.arguments);
@@ -179,7 +171,6 @@ namespace WpfAppControl
 
                     _childp.EnableRaisingEvents = true;
                     _childp.Exited += ProcessExited;
-                    Debug.Print("U WOT M8");
                 }
                 catch (Exception ex)
                 {
@@ -190,35 +181,33 @@ namespace WpfAppControl
                 var helper = new WindowInteropHelper(Window.GetWindow(this.AppContainer));
                 SetParent(_appWin, helper.Handle);
                 
+                //get the actual style
                 var actualStyle = GetWindowLong(_appWin, GWL_STYLE);
-
-                Debug.Print(actualStyle+"");
                 
+                //modify the style
                 actualStyle = actualStyle & ~WS_CAPTION;
                 actualStyle = actualStyle & ~WS_SYSMENU;
                 actualStyle = actualStyle & ~WS_THICKFRAME;
                 actualStyle = actualStyle & ~WS_MINIMIZE;
                 actualStyle = actualStyle & ~WS_MAXIMIZEBOX;
-                
-                Debug.Print(actualStyle + "");
-                
 
-                // Remove border and whatnot
+                // set the modified style as the actual style
                 SetWindowLongA(_appWin, GWL_STYLE, (int)actualStyle);
-                //SetWindowLongA(_appWin, GWL_STYLE, (int)actualStyle & ~(WS_BORDER | WS_DLGFRAME | WS_THICKFRAME));
 
+                //modify exstyle
                 var actualExStyle = GetWindowLong(_appWin, GWL_EXSTYLE);
                 SetWindowLongA(_appWin, GWL_EXSTYLE, (int)actualExStyle | WS_EX_DLGMODALFRAME);
     
-
                 // Move the window to overlay it on this window
-                //MoveWindow(_appWin, 0, 0, (int)this.ActualWidth, (int)this.ActualHeight, true);
                 SetRightMoveWindow();
-
-
             }
         }
 
+        /// <summary>
+        /// removes the tab item from the parent window when the process is killed
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         void ProcessExited(object sender, EventArgs e)
         {
             mainParent.RemoveTabItem(parentTabItem);
@@ -233,16 +222,25 @@ namespace WpfAppControl
             SetRightMoveWindow();
         }
 
+        /// <summary>
+        /// resizes the application window using a MAGIC_RATIO
+        /// (Needed because of reasons)
+        /// </summary>
         private void SetRightMoveWindow()
         {
+            //in case the application has started
             if (this._appWin != IntPtr.Zero)
             {
                 Point relativePoint = this.TransformToAncestor(mainParent)
                           .Transform(new Point(0, 0));
-                MoveWindow(_appWin, (int)(relativePoint.X*ratio), (int)(relativePoint.Y*ratio), (int)(this.ActualWidth * ratio), (int)(this.ActualHeight * ratio), true);
+                MoveWindow(_appWin, (int)(relativePoint.X*MAGIC_RATIO), (int)(relativePoint.Y*MAGIC_RATIO), (int)(this.ActualWidth * MAGIC_RATIO), (int)(this.ActualHeight * MAGIC_RATIO), true);
             }
         }
 
+        /// <summary>
+        /// kills the application
+        /// </summary>
+        /// <param name="disposing"></param>
         protected virtual void Dispose(bool disposing)
         {
             if (!_isdisposed)
@@ -267,6 +265,5 @@ namespace WpfAppControl
             this.Dispose(true);
             GC.SuppressFinalize(this);
         }
-
     }
 }
