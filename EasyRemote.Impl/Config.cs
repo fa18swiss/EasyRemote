@@ -11,14 +11,17 @@ namespace EasyRemote.Impl
 {
     internal class Config : IConfig
     {
+        /// <summary>
+        /// list of programs and protocols  </summary>
+        public static IProgramsProtocolsList ProgramsProtocolsList { get; set; }
         public Config()
         {
-            Programs = new List<IProgram>();
+            Programs = ProgramsProtocolsList.Programs;
             RootGroup = new ServerGroup();
         }
 
         [JsonConverter(typeof(ProgramConverter))]
-        public IList<IProgram> Programs { get; protected set; }
+        public ICollection<IProgram> Programs { get; protected set; }
 
 
         [JsonConverter(typeof(GenericConverter<ServerGroup>))]

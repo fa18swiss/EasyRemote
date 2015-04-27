@@ -25,6 +25,7 @@ namespace EasyRemote.Impl.Module
             var programsProtocolsList = container.Resolve<IProgramsProtocolsList>();
             Converters.JSON.ProtocolConverter.ProgramsProtocolsList = programsProtocolsList;
             Converters.JSON.ProgramConverter.ProgramsProtocolsList = programsProtocolsList;
+            Config.ProgramsProtocolsList = programsProtocolsList;
         }
     }
 }

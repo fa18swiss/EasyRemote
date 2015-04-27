@@ -10,7 +10,7 @@ namespace EasyRemote.Spec
         /// <summary>
         /// List of programs (with path)
         /// </summary>
-        IList<IProgram> Programs { get; }
+        ICollection<IProgram> Programs { get; }
         /// <summary>
         /// Root group of tree
         /// </summary>

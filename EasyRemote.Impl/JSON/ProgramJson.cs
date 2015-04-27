@@ -4,10 +4,18 @@ using EasyRemote.Spec;
 namespace EasyRemote.Impl.JSON
 {
     /// <summary>
-    /// Calss for json serialisation of programs
+    /// Class for json serialisation of programs
     /// </summary>
     internal class ProgramJson
     {
+        /// <summary>
+        /// Default constructor
+        /// </summary>
+        public ProgramJson()
+        {
+            Name = Path = null;
+            IsActivate = false;
+        }
         /// <summary>
         /// Create program json from program
         /// </summary>
